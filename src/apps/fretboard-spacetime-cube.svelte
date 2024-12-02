@@ -6,7 +6,7 @@
 	import 'aframe-svelte';
 	import { Midi } from 'musicvis-lib';
 	import { roundToStep } from '../lib/lib';
-	import MidiInput from '../common/input-handlers/midi-input.svelte';
+	import MidiInput from '../components/midi-input.svelte';
 	import * as AFRAME from 'aframe';
 
 	/**
@@ -21,11 +21,6 @@
 	 * - support hand tracking?
 	 *      - https://github.com/aframevr/aframe/blob/master/docs/components/hand-tracking-controls.md
 	 */
-
-	/**
-	 * contains the app meta information defined in App.js
-	 */
-	export let appInfo;
 
 	let stringCount = 6;
 	let fretCount = 24;
@@ -62,12 +57,12 @@
 			fret,
 			time,
 			note: Midi.NOTE_NAMES[midiNr % 12],
-			velocity
+			velocity,
 		};
 	};
 	let testInterval = setInterval(
 		() => (notes = [...notes, randomNote(performance.now() / 1000)]),
-		500
+		500,
 	);
 	$: lastNotes = notes.filter((d) => d.time > lastTimeSeconds - pastSeconds);
 
@@ -96,7 +91,7 @@
 			time: noteInSeconds,
 			channel: e.message.channel,
 			string,
-			fret
+			fret,
 		};
 		notes = [...notes, note];
 		lastTimeSeconds = noteInSeconds;
@@ -123,7 +118,7 @@
 					console.log('RIGHT');
 				}
 				debugMsg = `x ${evt.detail.x} y ${evt.detail.y}`;
-			}
+			},
 		});
 	});
 
@@ -141,12 +136,13 @@
 		<a-entity oculus-touch-controls="hand: right"></a-entity>
 		<!-- hand tracking -->
 		<a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
-		<a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
+		<a-entity id="rightHand" hand-tracking-controls="hand: right;"
+		></a-entity>
 		<!-- skybox -->
 		<a-sky color="white"></a-sky>
 		<!-- text with explanation -->
 		<a-entity
-			text="value: {appInfo.title}; color: #666; width: 5"
+			text="value: Fretboard Space-Time Cube; color: #666; width: 5"
 			position="-1.75 1.85 -3"
 			scale=".35 .35 .35"
 		></a-entity>
@@ -156,10 +152,19 @@
 			scale=".25 .25 .25"
 		></a-entity>
 		<!-- text for debugging -->
-		<a-entity text="value: {debugMsg}; color: #666; width: 5" position="-2 1 -3" scale=".25 .25 .25"
+		<a-entity
+			text="value: {debugMsg}; color: #666; width: 5"
+			position="-2 1 -3"
+			scale=".25 .25 .25"
 		></a-entity>
 		<!-- visualization container -->
-		<a-box position="-1 .5 -3" rotation="0 0 0" scale=".1 .1 .1" visible="true" opacity="0">
+		<a-box
+			position="-1 .5 -3"
+			rotation="0 0 0"
+			scale=".1 .1 .1"
+			visible="true"
+			opacity="0"
+		>
 			<!-- fretboard -->
 			{#each d3.range(stringCount) as string}
 				<!-- strings -->
@@ -187,16 +192,31 @@
 					color="#ddd"
 				></a-cylinder>
 				<!-- fret numbers -->
-				<a-entity text="value: {fret}; color: #666" position={`${fret + 4.5} 0 1`} scale="10 10 10"
+				<a-entity
+					text="value: {fret}; color: #666"
+					position={`${fret + 4.5} 0 1`}
+					scale="10 10 10"
 				></a-entity>
 			{/each}
 			<!-- inlays -->
 			{#each [3, 5, 7, 9, 15, 17, 19, 21] as dot}
-				<a-sphere position="{dot - 0.5} 0 -2.5" color="silver" scale="0.25 0.1 0.25"></a-sphere>
+				<a-sphere
+					position="{dot - 0.5} 0 -2.5"
+					color="silver"
+					scale="0.25 0.1 0.25"
+				></a-sphere>
 			{/each}
 			{#each [12, 24] as dot}
-				<a-sphere position="{dot - 0.5} 0 -1.5" color="silver" scale="0.25 0.1 0.25"></a-sphere>
-				<a-sphere position="{dot - 0.5} 0 -3.5" color="silver" scale="0.25 0.1 0.25"></a-sphere>
+				<a-sphere
+					position="{dot - 0.5} 0 -1.5"
+					color="silver"
+					scale="0.25 0.1 0.25"
+				></a-sphere>
+				<a-sphere
+					position="{dot - 0.5} 0 -3.5"
+					color="silver"
+					scale="0.25 0.1 0.25"
+				></a-sphere>
 			{/each}
 			{#each d3.range(roundToStep(firstTimeSeconds, 5), lastTimeSeconds + 1, 5) as time}
 				<!-- time axis -->
