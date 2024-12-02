@@ -1,5 +1,7 @@
 <script>
   import FretboardSpacetimeCube from './apps/fretboard-spacetime-cube.svelte';
+  import HandsTest from './apps/hands-test.svelte';
+  import PassthroughTest from './apps/passthrough-test.svelte';
 
   const apps = [
     {
@@ -15,38 +17,55 @@
       // difficulty: ['intermediate', 'advanced'],
       component: FretboardSpacetimeCube,
     },
+    {
+      id: 'hands-test',
+      title: 'Hands Test',
+      component: HandsTest,
+    },
+    {
+      id: 'passthrough-test',
+      title: 'Passthrough Test',
+      component: PassthroughTest,
+    },
   ];
 
-  let currentApp;
+  let currentApp = null;
 
-  const keyDown = (evt) {
-    if (evt.key === '')
-  }
+  const keyDown = (evt) => {
+    console.log(evt);
+
+    if (evt.key === 'Escape') {
+      currentApp = null;
+    }
+  };
 </script>
 
-<svelte:window onkeydown={keyDown}
+<svelte:window on:keydown={keyDown} />
 
 <main>
-  <h1>ARIPraVis</h1>
+  {#if !currentApp}
+    <h1>ARIPraVis</h1>
 
-  {#each apps as app (app.id)}
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="card" on:click={() => (currentApp = app)}>
-      <h2>
-        {app.title}
-      </h2>
-      <div class="description">
-        {app.description}
+    {#each apps as app (app.id)}
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
+      <div class="card" on:click={() => (currentApp = app)}>
+        <h2>
+          {app.title}
+        </h2>
+        <div class="description">
+          {app.description}
+        </div>
       </div>
-    </div>
-  {/each}
-
-  {#if currentApp}
+    {/each}
+  {:else}
     <!-- show app by importing dynamically -->
     <svelte:component this={currentApp.component} appInfo={currentApp} />
   {/if}
 </main>
 
 <style>
+  .card {
+    cursor: pointer;
+  }
 </style>
