@@ -17,13 +17,14 @@ function main() {
         if (WebMidi.inputs.length < 1) {
             console.warn('No MIDI device detected');
         } else {
-            WebMidi.inputs.forEach((device, index) => {
-                device.removeListener();
+            WebMidi.inputs.forEach((input, index) => {
+                input.removeListener();
                 // device.addListener('noteon', noteOn);
                 // device.addListener('noteoff', noteOff);
                 // device.addListener('controlchange', controlChange);
                 // device.addListener('pitchbend', pitchBend);
-                device.addListener('midimessage', midiMessage);
+                input.addListener('midimessage', midiMessage);
+                console.log(`MIDI enabled for ${input.name}`);
             });
         }
     };
