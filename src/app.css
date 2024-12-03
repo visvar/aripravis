@@ -13,6 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  user-select: none;
+}
+
+/* input[type=text] {
+  user-select: all;
+} */
+
 a {
   font-weight: 500;
   color: steelblue;

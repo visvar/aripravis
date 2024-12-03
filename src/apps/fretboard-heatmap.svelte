@@ -26,6 +26,7 @@
    */
   let notes = [];
   let binnedNotes;
+  let maxValue = 1;
 
   // create random data until MIDI input is received
   const randomNote = (time) => {
@@ -78,16 +79,15 @@
       (d) => d.string,
       (d) => d.fret,
     );
+    maxValue = d3.max(binnedNotes, ([string, data]) =>
+      d3.max(data, ([fret, notes]) => notes.length),
+    );
   };
 
   $: binNotes(notes);
 
-  $: colorMap = (value) =>
-    d3.interpolateBlues(value / d3.max(binnedNotes.flat(), (d) => d.length));
-  $: heightMap = d3
-    .scaleLinear()
-    .domain([0, d3.max(binnedNotes.flat(), (d) => d.length)])
-    .range([0, 0.02]);
+  $: colorMap = (value) => d3.interpolateYlGnBu(value / maxValue);
+  $: heightMap = d3.scaleLinear().domain([0, maxValue]).range([0, 0.02]);
 
   onDestroy(() => {
     clearInterval(testInterval);
@@ -99,7 +99,7 @@
   <!-- x is right, y is up, z is toward camera -->
   <!-- <a-scene> -->
   <a-scene
-    xrweb="mode: immersive-ar; requiredFeatures: hit-test;"
+    xrweb="mode: immersive-ar;"
     xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
     renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
   >
@@ -142,6 +142,32 @@
       <a-entity
         text="value: Connect a MIDI guitar and start playing. Notes are positioned based on their string (forward), fret (right), and time (up). They are colored by string and labelled with note name and fret number.\n\nRandom notes are shown until you play.\n\nGo back in your browser to return to the main page.; color: #aaa; width: 5"
         position="-0.037 0.03 0"
+        scale=".01 .01 .01"
+      ></a-entity>
+
+      <!-- color legend -->
+      <a-entity
+        text="value: Number of notes at position; color: #aaa; width: 5"
+        position="0.049 0.057 0"
+        scale=".02 .02 .02"
+      ></a-entity>
+      {#each d3.range(0, 1, 0.01) as value, index}
+        <a-plane
+          position="{index * 0.001} 0.05 0"
+          color={d3.interpolateYlGnBu(value)}
+          width={0.001}
+          height="0.005"
+        >
+        </a-plane>
+      {/each}
+      <a-entity
+        text="value: {0}; color: #aaa; width: 5"
+        position="0.024 0.045 0"
+        scale=".01 .01 .01"
+      ></a-entity>
+      <a-entity
+        text="value: {maxValue}; color: #aaa; width: 5"
+        position="0.123 0.045 0"
         scale=".01 .01 .01"
       ></a-entity>
       <!-- fretboard -->
@@ -224,6 +250,7 @@
           scale="0.002 0.0005 0.002"
         ></a-sphere>
       {/each}
+      <!-- notes -->
       {#each binnedNotes as [stringPos, stringNotes]}
         {#each stringNotes as [fretPos, notes]}
           <a-cylinder

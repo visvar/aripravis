@@ -18,7 +18,7 @@
   <!-- x is right, y is up, z is toward camera -->
   <!-- <a-scene xrweb="arMode: true"> -->
   <a-scene
-    xrweb="mode: immersive-ar; requiredFeatures: hit-test; optionalFeatures: dom-overlay; overlayElement: #overlay"
+    xrweb="mode: immersive-ar; optionalFeatures: dom-overlay; overlayElement: #overlay"
     xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
     renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true"
   >

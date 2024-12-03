@@ -24,6 +24,10 @@
 - [ ] scale select
   - [ ] color vis by scale (in/outside)
   - [ ] color vis by scale degrees (e.g., 1 4 7)
+- [ ] legends
+  - [x] color legend continuous
+  - [ ] color legend swatches
+  - [ ] d3 ticks for better look
 - [ ] facetting/small multiples
 - [ ] timeline
   - [ ] piano roll
@@ -35,7 +39,9 @@
   - [x] server pushes midi messages
   - [x] client connects to server
   - [ ] test with phone and HMD
-
+- [ ] show chords
+  - [ ] color per chord
+  - [ ] put them into bbox?
 
 
 
@@ -52,3 +58,5 @@
   - https://immersive-web.github.io/webxr-samples/
 - controllers
   - https://aframe.io/docs/1.6.0/introduction/interactions-and-controllers.html
+- can we improve performance with this?
+  - https://aframe.io/docs/1.6.0/components/renderer.html#multiviewstereo
