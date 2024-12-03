@@ -1,7 +1,7 @@
 <script>
   import { onDestroy, onMount } from 'svelte';
   import * as d3 from 'd3';
-  import { Note } from 'tonal';
+  import { height, Note } from 'tonal';
   import 'aframe';
   import 'aframe-svelte';
   import { Midi } from 'musicvis-lib';
@@ -25,6 +25,8 @@
    * @type {object[]}
    */
   let notes = [];
+  let binnedNotes;
+
   // create random data until MIDI input is received
   const randomNote = (time) => {
     const string = Math.floor(Math.random() * 6);
@@ -69,6 +71,23 @@
     };
     notes = [...notes, note];
   };
+
+  const binNotes = (notes) => {
+    binnedNotes = d3.groups(
+      notes,
+      (d) => d.string,
+      (d) => d.fret,
+    );
+  };
+
+  $: binNotes(notes);
+
+  $: colorMap = (value) =>
+    d3.interpolateBlues(value / d3.max(binnedNotes.flat(), (d) => d.length));
+  $: heightMap = d3
+    .scaleLinear()
+    .domain([0, d3.max(binnedNotes.flat(), (d) => d.length)])
+    .range([0, 0.02]);
 
   onDestroy(() => {
     clearInterval(testInterval);
@@ -197,6 +216,21 @@
           color="silver"
           scale="0.002 0.0005 0.002"
         ></a-sphere>
+      {/each}
+      {#each binnedNotes as [stringPos, stringNotes]}
+        {#each stringNotes as [fretPos, notes]}
+          <a-cylinder
+            position={`
+          ${(fretPositionsMeter[fretPos] + fretPositionsMeter[fretPos - 1]) / 2}
+
+          ${heightMap(notes.length) / 2}
+
+          ${(stringPositions[stringPos] + stringPositions[stringPos - 1]) / 2}`}
+            color={colorMap(notes.length)}
+            radius="0.002"
+            height={heightMap(notes.length)}
+          ></a-cylinder>
+        {/each}
       {/each}
     </a-box>
   </a-scene>

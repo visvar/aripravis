@@ -11,7 +11,6 @@
   export let controlChange = (message) => {};
   export let pitchBend = (message) => {};
   export let errorCallback = (err) => console.error(err);
-  export let disabled = false;
 
   let midiDevices = [];
   let disabledDevices = new Set();
@@ -26,7 +25,6 @@
     midiDevices = [];
     if (WebMidi.inputs.length < 1) {
       console.warn('No MIDI device detected');
-      midiWorks = false;
     } else {
       WebMidi.inputs.forEach((device, index) => {
         device.removeListener();
@@ -56,7 +54,6 @@
     WebMidi.enable()
       .then(onMidiEnabled)
       .catch((err) => {
-        midiWorks = false;
         errorCallback(err);
       });
   });

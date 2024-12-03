@@ -13,9 +13,13 @@
 - [ ] data storage and loading
 - [ ] visualizations
   - [ ] heatmap
+  - [ ] bar chart
   - [x] 3D scatterplot
   - [ ] ...
--
+- midi streaming from PC to HMD via websockets
+  - [x] server takes midi input
+  - [ ] client connects to server
+  - [ ] server pushes midi messages
 
 
 
