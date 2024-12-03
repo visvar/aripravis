@@ -10,13 +10,11 @@
    */
 
   onDestroy(() => {
-    window.location.reload();
+    // window.location.reload();
   });
 </script>
 
 <main class="app">
-  <!-- x is right, y is up, z is toward camera -->
-  <!-- <a-scene xrweb="arMode: true"> -->
   <a-scene
     xrweb="mode: immersive-ar; optionalFeatures: dom-overlay; overlayElement: #overlay"
     xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"

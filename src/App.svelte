@@ -4,6 +4,7 @@
   import FretboardSpacetimeCube from './apps/fretboard-spacetime-cube.svelte';
   import HandsTest from './apps/hands-test.svelte';
   import PassthroughTest from './apps/passthrough-test.svelte';
+  import FretboardBarChart from './apps/fretboard-bar-chart.svelte';
 
   const pw = 'ari';
   let spw = localStorage.getItem('pw') ?? '';
@@ -25,14 +26,12 @@
       };
       ws.onmessage = async (msg) => {
         console.log('got message');
-        // console.log(msg.data);
         console.log(JSON.parse(msg.data));
       };
       ws.onclose = () => {
         console.warn('connection closed');
         connected = false;
       };
-      // console.log(ws);
     } catch (e) {
       console.log(e);
     }
@@ -53,19 +52,24 @@
       component: FretboardSpacetimeCube,
     },
     {
-      id: 'hands-test',
-      title: 'Hands Test',
-      component: HandsTest,
-    },
-    {
       id: 'fretboard-heatmap',
       title: 'Fretboard Heatmap',
       component: FretboardHeatmap,
     },
     {
+      id: 'fretboard-bar-chart',
+      title: 'Fretboard Bar Chart',
+      component: FretboardBarChart,
+    },
+    {
       id: 'passthrough-test',
       title: 'Passthrough Test',
       component: PassthroughTest,
+    },
+    {
+      id: 'hands-test',
+      title: 'Hands Test',
+      component: HandsTest,
     },
   ];
 

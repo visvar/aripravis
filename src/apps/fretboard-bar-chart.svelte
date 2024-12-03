@@ -12,7 +12,7 @@
     fretPositions,
     fretPositionsMeter,
   } from '../lib/guitar-fret-spacing';
-  import ColorLegend from '../components/color-legend.svelte';
+  import ColorSwatches from '../components/color-swatches.svelte';
 
   let stringCount = 6;
   const stringPositions = d3.range(stringCount).map((d) => d * 0.007);
@@ -87,13 +87,17 @@
 
   $: binNotes(notes);
 
-  const colorScale = (d) => d3.interpolateYlGnBu(1 - d);
-  $: colorMap = (value) => colorScale(value / maxValue);
+  $: heightMap = d3.scaleLinear().domain([0, maxValue]).range([0, 0.02]);
 
   onDestroy(() => {
     clearInterval(testInterval);
     // window.location.reload();
   });
+
+  const colorMap = new Map([
+    ['in scale', 'steelblue'],
+    ['outside scale', 'orange'],
+  ]);
 </script>
 
 <main class="app">
@@ -125,22 +129,18 @@
     >
       <!-- text with explanation -->
       <a-entity
-        text="value: Fretboard Heatmap; color: #888; width: 5"
+        text="value: Fretboard Bar Chart; color: #888; width: 5"
         position="0 0.05 0"
         scale=".025 .025 .025"
       ></a-entity>
       <a-entity
-        text="value: Connect a MIDI guitar and start playing. Notes are positioned based on their string (forward), fret (right), and time (up). They are colored by string and labelled with note name and fret number.\n\nRandom notes are shown until you play.\n\nGo back in your browser to return to the main page.; color: #aaa; width: 5"
+        text="value: Connect a MIDI guitar and start playing. Notes are positioned based on their string (forward), fret (right); color: #aaa; width: 5"
         position="-0.037 0.03 0"
         scale=".01 .01 .01"
       ></a-entity>
 
       <!-- color legend -->
-      <ColorLegend
-        {colorScale}
-        title="Number of notes at position"
-        {maxValue}
-      />
+      <ColorSwatches {colorMap} title="Note type" />
       <!-- fretboard -->
       {#each d3.range(stringCount) as string}
         <!-- strings -->
@@ -205,7 +205,6 @@
           ${stringPositions.at(-1) / 2}`}
           color="silver"
           scale="0.002 0.0005 0.002"
-          opacity="0.5"
         ></a-sphere>
       {/each}
       {#each [12, 24] as dot}
@@ -216,16 +215,14 @@
           ${(stringPositions.at(1) + stringPositions.at(2)) / 2}`}
           color="silver"
           scale="0.002 0.0005 0.002"
-          opacity="0.5"
         ></a-sphere>
         <a-sphere
           position={`
           ${(fretPositionsMeter[dot] + fretPositionsMeter[dot - 1]) / 2}
-          0
+           0
           ${(stringPositions.at(3) + stringPositions.at(4)) / 2}`}
           color="silver"
           scale="0.002 0.0005 0.002"
-          opacity="0.5"
         ></a-sphere>
       {/each}
       <!-- notes -->
@@ -235,12 +232,14 @@
             position={`
           ${(fretPositionsMeter[fretPos] + fretPositionsMeter[fretPos - 1]) / 2}
 
-          0
+          ${heightMap(notes.length) / 2}
 
           ${(stringPositions[stringPos] + stringPositions[stringPos - 1]) / 2}`}
-            color={colorMap(notes.length)}
+            color={colorMap.get(
+              fretPos % 2 === 0 ? 'in scale' : 'outside scale',
+            )}
             radius="0.002"
-            height={0.001}
+            height={heightMap(notes.length)}
           ></a-cylinder>
         {/each}
       {/each}

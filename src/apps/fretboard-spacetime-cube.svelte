@@ -125,12 +125,11 @@
 
 	onDestroy(() => {
 		clearInterval(testInterval);
-		window.location.reload();
+		// window.location.reload();
 	});
 </script>
 
 <main class="app">
-	<!-- x is right, y is up, z is toward camera -->
 	<a-scene
 		xrweb="mode: immersive-ar;"
 		xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
@@ -143,8 +142,6 @@
 		<a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
 		<a-entity id="rightHand" hand-tracking-controls="hand: right;"
 		></a-entity>
-		<!-- skybox -->
-		<!-- <a-sky color="white"></a-sky> -->
 		<!-- text with explanation -->
 		<a-entity
 			text="value: Fretboard Space-Time Cube; color: #666; width: 5"

@@ -26,8 +26,8 @@
   - [ ] color vis by scale degrees (e.g., 1 4 7)
 - [ ] legends
   - [x] color legend continuous
-  - [ ] color legend swatches
-  - [ ] d3 ticks for better look
+    - [ ] d3 ticks for better look
+  - [x] color legend swatches
 - [ ] facetting/small multiples
 - [ ] timeline
   - [ ] piano roll
