@@ -1,7 +1,12 @@
 <script>
+  import FretboardHeatmap from './apps/fretboard-heatmap.svelte';
   import FretboardSpacetimeCube from './apps/fretboard-spacetime-cube.svelte';
   import HandsTest from './apps/hands-test.svelte';
   import PassthroughTest from './apps/passthrough-test.svelte';
+
+  const pw = 'ari';
+  let spw = localStorage.getItem('pw') ?? '';
+  $: localStorage.setItem('pw', spw);
 
   const apps = [
     {
@@ -21,6 +26,11 @@
       id: 'hands-test',
       title: 'Hands Test',
       component: HandsTest,
+    },
+    {
+      id: 'fretboard-heatmap',
+      title: 'Fretboard Heatmap',
+      component: FretboardHeatmap,
     },
     {
       id: 'passthrough-test',
@@ -43,7 +53,9 @@
 <svelte:window on:keydown={keyDown} />
 
 <main>
-  {#if !currentApp}
+  {#if spw !== pw}
+    <input type="password" bind:value={spw} placeholder="password" />
+  {:else if !currentApp}
     <h1>ARIPraVis</h1>
 
     {#each apps as app (app.id)}
@@ -58,6 +70,10 @@
         </div>
       </div>
     {/each}
+
+    <footer>
+      <a href="https://github.com/visvar/aripravis" target="_blank">GitHub</a>
+    </footer>
   {:else}
     <!-- show app by importing dynamically -->
     <svelte:component this={currentApp.component} appInfo={currentApp} />
@@ -66,6 +82,20 @@
 
 <style>
   .card {
+    margin: 10px;
+    padding: 10px;
     cursor: pointer;
+  }
+
+  .card h2 {
+    margin: 0;
+  }
+
+  .card h2:hover {
+    text-shadow: steelblue 0 0 30px;
+  }
+
+  footer {
+    margin-top: 40px;
   }
 </style>

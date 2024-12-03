@@ -7,6 +7,7 @@
  * @type {number[]}
  */
 export const fretPositions = [
+    0,
     36.316,
     70.596,
     102.954,
@@ -32,3 +33,5 @@ export const fretPositions = [
     475.912,
     485.544,
 ]
+
+export const fretPositionsMeter = fretPositions.map(d => d / 1000)
