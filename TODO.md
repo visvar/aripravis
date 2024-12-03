@@ -7,20 +7,34 @@
   - [ ] buttons
   - [ ] slider
   - [ ] shortcuts, changing values with joystick etc
-- [ ] attach vis to controller
-  - [ ] scale according to instrument
 - [ ] direct interaction, e.g., pitch and drag to scale time
+- [ ] attach vis to controller
+  - [ ] calibration mode (mark two points wtih controller)
+  - [x] scale fretbord according to instrument
+  - [ ] scale keyboard according to instrument
 - [ ] data storage and loading
 - [ ] visualizations
-  - [ ] heatmap
-  - [ ] bar chart
-  - [x] 3D scatterplot
+  - [x] guitar heatmap
+  - [x] guitar bar chart
+  - [x] guitar 3D scatterplot
+  - [ ] piano heatmap
+  - [ ] piano bar chart
+  - [ ] piano 3D scatterplot
   - [ ] ...
-- midi streaming from PC to HMD via websockets
+- [ ] scale select
+  - [ ] color vis by scale (in/outside)
+  - [ ] color vis by scale degrees (e.g., 1 4 7)
+- [ ] facetting/small multiples
+- [ ] timeline
+  - [ ] piano roll
+  - [ ] tab
+  - [ ] brushing & linking to filter time
+- [ ] midi streaming from PC to HMD via websockets
   - see https://github.com/fheyen/synced-guitar-tabs
   - [x] server takes midi input
-  - [ ] client connects to server
-  - [ ] server pushes midi messages
+  - [x] server pushes midi messages
+  - [x] client connects to server
+  - [ ] test with phone and HMD
 
 
 
