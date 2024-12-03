@@ -97,7 +97,12 @@
 
 <main class="app">
   <!-- x is right, y is up, z is toward camera -->
-  <a-scene>
+  <!-- <a-scene> -->
+  <a-scene
+    xrweb="mode: immersive-ar; requiredFeatures: hit-test;"
+    xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
+    renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+  >
     <!-- controllers -->
     <a-entity oculus-touch-controls="hand: left"></a-entity>
     <a-entity oculus-touch-controls="hand: right"></a-entity>
@@ -154,7 +159,7 @@
         ></a-cylinder>
         <!-- string notes -->
         <a-entity
-          text="value: {tuningNotes[string]}; color: #666"
+          text="value: {tuningNotes[string].slice(0, -1)}; color: #666"
           position={`
             0.04
             0
@@ -176,11 +181,13 @@
           rotation="90 0 0"
           color="#ddd"
         ></a-cylinder>
-        <!-- fret numbers -->
+      {/each}
+      <!-- fret numbers -->
+      {#each [0, 1, 3, 5, 7, 9, 12, 15, 17, 19, 21, 24] as fret}
         <a-entity
           text="value: {fret}; color: #666"
           position={`
-            ${fretPositionsMeter[fret] + 0.05}
+            ${fretPositionsMeter[fret] * 0.99 + 0.05}
             0
             ${stringPositions.at(-1) + 0.01}`}
           scale="0.1 0.1 0.1"

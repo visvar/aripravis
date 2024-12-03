@@ -21,6 +21,7 @@
       ws.onopen = () => {
         console.log('ws connected');
         connected = true;
+        localStorage.setItem('wsUrl', wsUrl);
       };
       ws.onmessage = async (msg) => {
         console.log('got message');

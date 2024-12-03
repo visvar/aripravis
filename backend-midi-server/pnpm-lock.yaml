@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      ip:
+        specifier: ^2.0.1
+        version: 2.0.1
       nodemon:
         specifier: ^3.1.7
         version: 3.1.7
@@ -83,6 +86,9 @@ packages:
 
   ignore-by-default@1.0.1:
     resolution: {integrity: sha512-Ius2VYcGNk7T90CppJqcIkS5ooHUZyIQK+ClZfMfMNFEF9VSE73Fq+906u/CWu92x4gzZMWOwfFYckPObzdEbA==}
+
+  ip@2.0.1:
+    resolution: {integrity: sha512-lJUL9imLTNi1ZfXT+DU6rBBdbiKGBuay9B6xGSPVjUeQwaH1RIGqef8RZkUtHioLmSNpPR5M4HVKJGm1j8FWVQ==}
 
   is-binary-path@2.1.0:
     resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
@@ -241,6 +247,8 @@ snapshots:
   has-flag@3.0.0: {}
 
   ignore-by-default@1.0.1: {}
+
+  ip@2.0.1: {}
 
   is-binary-path@2.1.0:
     dependencies:

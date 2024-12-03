@@ -20,8 +20,7 @@
   <a-scene
     xrweb="mode: immersive-ar; requiredFeatures: hit-test; optionalFeatures: dom-overlay; overlayElement: #overlay"
     xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
-    renderer="colorManagement: true; antialias: true; foveationLevel: 1"
-    embedded
+    renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true"
   >
     <!-- controllers -->
     <a-entity oculus-touch-controls="hand: left" modelOpacity="0.5"></a-entity>

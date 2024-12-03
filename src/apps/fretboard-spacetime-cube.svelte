@@ -105,19 +105,20 @@
 				this.el.addEventListener('thumbstickmoved', this.logThumbstick);
 			},
 			logThumbstick: function (evt) {
+				let direction = '';
 				if (evt.detail.y > 0.95) {
-					console.log('DOWN');
+					direction = 'DOWN';
 				}
 				if (evt.detail.y < -0.95) {
-					console.log('UP');
+					direction = 'UP';
 				}
 				if (evt.detail.x < -0.95) {
-					console.log('LEFT');
+					direction = 'LEFT';
 				}
 				if (evt.detail.x > 0.95) {
-					console.log('RIGHT');
+					direction = 'RIGHT';
 				}
-				debugMsg = `x ${evt.detail.x} y ${evt.detail.y}`;
+				debugMsg = `x ${evt.detail.x} y ${evt.detail.y} dir ${direction}`;
 			},
 		});
 	});
@@ -130,7 +131,11 @@
 
 <main class="app">
 	<!-- x is right, y is up, z is toward camera -->
-	<a-scene>
+	<a-scene
+		xrweb="mode: immersive-ar; requiredFeatures: hit-test;"
+		xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
+		renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+	>
 		<!-- controllers -->
 		<a-entity oculus-touch-controls="hand: left"></a-entity>
 		<a-entity oculus-touch-controls="hand: right"></a-entity>
@@ -139,7 +144,7 @@
 		<a-entity id="rightHand" hand-tracking-controls="hand: right;"
 		></a-entity>
 		<!-- skybox -->
-		<a-sky color="white"></a-sky>
+		<!-- <a-sky color="white"></a-sky> -->
 		<!-- text with explanation -->
 		<a-entity
 			text="value: Fretboard Space-Time Cube; color: #666; width: 5"

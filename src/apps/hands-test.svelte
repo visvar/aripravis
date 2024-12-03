@@ -16,7 +16,11 @@
 
 <main class="app">
   <!-- x is right, y is up, z is toward camera -->
-  <a-scene>
+  <a-scene
+    xrweb="mode: immersive-ar; requiredFeatures: hit-test;"
+    xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
+    renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+  >
     <!-- controllers -->
     <a-entity oculus-touch-controls="hand: left" modelOpacity="0.5"></a-entity>
     <a-entity oculus-touch-controls="hand: right" modelOpacity="0.5"></a-entity>

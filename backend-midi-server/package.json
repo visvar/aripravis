@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ip": "^2.0.1",
     "nodemon": "^3.1.7",
     "webmidi": "^3.1.12",
     "ws": "^8.18.0"

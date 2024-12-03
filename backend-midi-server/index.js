@@ -1,14 +1,13 @@
 import { WebMidi } from 'webmidi'
 import { WebSocketServer } from 'ws'
-
+import ip from 'ip'
 
 const PORT = 8080
 
 
 function main() {
-    console.log(`running on port ${PORT}`)
+    console.log(`running at ${ip.address()}:${PORT}`)
     console.log('starting up, enabling MIDI')
-
 
     const wss = new WebSocketServer({
         port: PORT
@@ -38,7 +37,7 @@ function main() {
      * @param {object} msg
      */
     const midiMessage = (msg) => {
-        console.log('midi msg', msg.type, msg.note.number)
+        console.log('midi', msg.type, msg.note.number)
 
         const note = {
             type: msg.message.type,
