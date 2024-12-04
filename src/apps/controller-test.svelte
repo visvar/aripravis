@@ -71,22 +71,20 @@
   });
 </script>
 
-<main class="app">
-  <a-scene
-    xrweb="mode: immersive-ar;"
-    xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
-    renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
-  >
-    <!-- controllers -->
-    <a-entity meta-touch-controls="hand: left; model: true" thumbstick-logging
-    ></a-entity>
-    <a-entity meta-touch-controls="hand: right; model: true" thumbstick-logging
-    ></a-entity>
-    <!-- text for debugging -->
-    <a-entity
-      text="value: DEBUG:\n\n{debugMsg}; color: white; width: 5"
-      position="-0 0 -3"
-      scale=".25 .25 .25"
-    ></a-entity>
-  </a-scene>
-</main>
+<a-scene
+  xrweb="mode: immersive-ar;"
+  xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
+  renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+>
+  <!-- controllers -->
+  <a-entity meta-touch-controls="hand: left; model: true" thumbstick-logging
+  ></a-entity>
+  <a-entity meta-touch-controls="hand: right; model: true" thumbstick-logging
+  ></a-entity>
+  <!-- text for debugging -->
+  <a-entity
+    text="value: DEBUG:\n\n{debugMsg}; color: white; width: 5"
+    position="-0 0 -3"
+    scale=".25 .25 .25"
+  ></a-entity>
+</a-scene>

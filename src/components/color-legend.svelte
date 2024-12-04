@@ -16,6 +16,7 @@
         scale=".02 .02 .02"
         align="left"
         anchor="left"
+        material="side: double"
     ></a-text>
     {#each d3.range(0, 1, 0.01) as value, index}
         <a-plane
@@ -23,6 +24,7 @@
             color={colorScale(value)}
             width={0.001}
             height="0.005"
+            material="side: double"
         >
         </a-plane>
     {/each}
@@ -34,6 +36,7 @@
         scale=".015 .015 .015"
         align="center"
         anchor="center"
+        material="side: double"
     ></a-text>
     <a-text
         value={maxValue}
@@ -43,5 +46,6 @@
         scale=".015 .015 .015"
         align="center"
         anchor="center"
+        material="side: double"
     ></a-text>
 </a-entity>

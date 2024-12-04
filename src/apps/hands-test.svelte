@@ -14,34 +14,32 @@
   });
 </script>
 
-<main class="app">
-  <a-scene
-    xrweb="mode: immersive-ar;"
-    xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
-    renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
-  >
-    <!-- controllers -->
-    <a-entity oculus-touch-controls="hand: left" modelOpacity="0.5"></a-entity>
-    <a-entity oculus-touch-controls="hand: right" modelOpacity="0.5"></a-entity>
-    <!-- hand tracking -->
-    <a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
-    <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
-    <!-- text for debugging -->
-    <!-- <a-entity
+<a-scene
+  xrweb="mode: immersive-ar;"
+  xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
+  renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+>
+  <!-- controllers -->
+  <a-entity oculus-touch-controls="hand: left" modelOpacity="0.5"></a-entity>
+  <a-entity oculus-touch-controls="hand: right" modelOpacity="0.5"></a-entity>
+  <!-- hand tracking -->
+  <a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
+  <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
+  <!-- text for debugging -->
+  <!-- <a-entity
 			text="value: {debugMsg}; color: #666; width: 5"
 			position="-2 1 -3"
 			scale=".25 .25 .25"
 		></a-entity> -->
-    <!-- visualization container -->
-    <a-box
-      position="-1 .5 -3"
-      rotation="0 0 0"
-      scale=".1 .1 .1"
-      visible="true"
-      opacity="1"
-      color="red"
-      pressable
-    >
-    </a-box>
-  </a-scene>
-</main>
+  <!-- visualization container -->
+  <a-box
+    position="-1 .5 -3"
+    rotation="0 0 0"
+    scale=".1 .1 .1"
+    visible="true"
+    opacity="1"
+    color="red"
+    pressable
+  >
+  </a-box>
+</a-scene>

@@ -26,7 +26,7 @@
   // keys
   const keys = [];
   let currentX = whiteKeyXScale / 2;
-  for (let number = 0; number <= maxPitch; number++) {
+  for (let number = minPitch; number <= maxPitch; number++) {
     const isBlack = Midi.isSharp(number);
     const xOffset = isBlack ? blackKeyXOffset[number % 12] : 0;
     const zOffset = isBlack ? blackKeyZOffset : 0;
@@ -87,8 +87,6 @@
 
   const binNotes = (notes) => {
     const binned = d3.groups(notes, (d) => d.number);
-    console.log(binned);
-
     maxValue = d3.max(binned, ([number, notes]) => notes.length);
     binnedNotes = new Map(binned);
   };
@@ -103,79 +101,70 @@
   });
 </script>
 
-<main class="app">
-  <!-- <a-scene> -->
-  <a-scene
-    xrweb="mode: immersive-ar;"
-    xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
-    renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+<a-scene
+  xrweb="mode: immersive-ar;"
+  xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
+  renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+>
+  <!-- controllers -->
+  <a-entity oculus-touch-controls="hand: left"></a-entity>
+  <a-entity oculus-touch-controls="hand: right"></a-entity>
+  <!-- hand tracking -->
+  <a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
+  <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
+  <!-- visualization container -->
+  <a-box
+    position="-0.1 1.5 -0.25"
+    rotation="0 0 0"
+    scale="1 1 1"
+    visible="true"
+    opacity="0"
   >
-    <!-- controllers -->
-    <a-entity oculus-touch-controls="hand: left"></a-entity>
-    <a-entity oculus-touch-controls="hand: right"></a-entity>
-    <!-- hand tracking -->
-    <a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
-    <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
-    <!-- visualization container -->
-    <a-box
-      position="-0.1 1.5 -0.25"
-      rotation="0 0 0"
-      scale="1 1 1"
-      visible="true"
-      opacity="0"
-    >
+    <!-- text with explanation -->
+    <a-entity
+      text="value: Keyboard Heatmap; color: #888; width: 5"
+      position="0 0.05 0"
+      scale=".025 .025 .025"
+    ></a-entity>
+    <a-entity
+      text="value: Connect a MIDI keyboard and start playing.; color: #aaa; width: 5"
+      position="-0.037 0.03 0"
+      scale=".01 .01 .01"
+    ></a-entity>
+
+    <!-- color legend -->
+    <ColorLegend
+      {colorScale}
+      title="Number of notes at position"
+      {maxValue}
+      position="0 0 {-whiteKeyZScale}"
+    />
+    <!-- keyboard -->
+    {#each keys as k}
       <a-box
-        position="0 0 0"
-        rotation="0 0 0"
-        scale="0.01 0.01 0.01"
-        color="red"
+        position="{k.x} {k.y} {k.z}"
+        scale="{k.xScale} {k.yScale} {k.zScale}"
+        color={colorMap(binnedNotes.get(k.number)?.length ?? 0)}
+        opacity="0.5"
       >
       </a-box>
-      <!-- text with explanation -->
-      <a-entity
-        text="value: Keyboard Heatmap; color: #888; width: 5"
-        position="0 0.05 0"
-        scale=".025 .025 .025"
-      ></a-entity>
-      <a-entity
-        text="value: Connect a MIDI keyboard and start playing.; color: #aaa; width: 5"
-        position="-0.037 0.03 0"
-        scale=".01 .01 .01"
-      ></a-entity>
-
-      <!-- color legend -->
-      <ColorLegend
-        {colorScale}
-        title="Number of notes at position"
-        {maxValue}
-      />
-      <!-- keyboard -->
-      {#each keys as k}
-        <a-box
-          position="{k.x} {k.y} {k.z}"
-          scale="{k.xScale} {k.yScale} {k.zScale}"
-          color={colorMap(binnedNotes.get(k.number)?.length ?? 0)}
-          opacity="0.5"
-        >
-        </a-box>
-        {#if !k.isBlack}
-          <a-text
-            value={k.number % 12 === 0
-              ? `${k.note}\n${Math.floor(k.number / 12)}`
-              : k.note}
-            color="white"
-            width="1"
-            position="{k.x} {0} {0.01}"
-            rotation="-45 0 0"
-            scale=".15 .15 .15"
-            align="center"
-            anchor="center"
-            baseline="top"
-            material="side: double"
-          ></a-text>
-        {/if}
-      {/each}
-    </a-box>
-  </a-scene>
-  <MidiInput {noteOn} />
-</main>
+      {#if !k.isBlack}
+        <a-text
+          value={k.number % 12 === 0
+            ? `${k.note}\n${Math.floor(k.number / 12)}`
+            : k.note}
+          color="white"
+          width="1"
+          position="{k.x} {0} {0.01}"
+          rotation="-45 0 0"
+          scale=".15 .15 .15"
+          align="center"
+          anchor="center"
+          baseline="top"
+          material="side: double"
+        ></a-text>
+      {/if}
+    {/each}
+  </a-box>
+</a-scene>
+<MidiInput {noteOn} />

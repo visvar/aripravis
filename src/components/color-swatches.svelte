@@ -13,6 +13,7 @@
         scale=".02 .02 .02"
         align="left"
         anchor="left"
+        material="side: double"
     ></a-text>
     {#each [...colorMap.entries()] as [value, color], index}
         <a-plane
@@ -20,6 +21,7 @@
             {color}
             width={0.005}
             height="0.005"
+            material="side: double"
         >
         </a-plane>
         <a-text
@@ -30,6 +32,7 @@
             scale=".015 .015 .015"
             align="left"
             anchor="left"
+            material="side: double"
         ></a-text>
     {/each}
 </a-entity>

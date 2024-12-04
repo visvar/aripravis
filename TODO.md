@@ -1,19 +1,20 @@
 # TODO
 
-- [ ] passthrough
+- [x] passthrough
 - [ ] hand tracking
 - [ ] settings
   - [ ] buttons
   - [ ] slider
   - [ ] shortcuts, changing values with joystick etc
-- [ ] direct interaction, e.g., pitch and drag to scale time
+  - [ ] MIDI control, toggled with hand button, then used to change values quickly
+    - [ ] select scale root
+    - [ ] select scale degrees to color
 - [ ] attach vis to controller
+  - [x] scale fretbord according to instrument
+  - [x] scale keyboard according to instrument
   - [ ] controller input
   - [ ] get controller position
   - [ ] calibration mode (mark two points wtih controller)
-  - [x] scale fretbord according to instrument
-  - [ ] scale keyboard according to instrument
-- [ ] data storage and loading
 - [ ] visualizations
   - [x] guitar heatmap
   - [x] guitar bar chart
@@ -29,7 +30,6 @@
   - [x] color legend continuous
     - [ ] d3 ticks for better look
   - [x] color legend swatches
-- [ ] facetting/small multiples
 - [ ] timeline
   - [ ] piano roll
   - [ ] tab
@@ -41,6 +41,12 @@
   - [x] client connects to server
   - [ ] test with phone and HMD
 
+## Next
+
+- [ ] data storage and loading
+- [ ] direct interaction, e.g., pitch and drag to scale time
+- [ ] facetting/small multiples
+
 ## Later
 
 - [ ] show chords
@@ -49,8 +55,16 @@
 - [ ] haptic feedback?
   - [ ] metronome
   - [ ] input/state events, e.g., slider moving
-- [ ] acoustic feedback?
+- [ ] acoustic feedback? (tone.js? howler?) https://aframe.io/docs/1.6.0/components/sound.html#main
   - [ ] button interaction, saving, ...
+
+## Maybe
+
+- [ ] other instruments
+  - [ ] kalimba
+  - [ ] drum kit
+  - [ ] kajon
+  - [ ] saxophone
 
 
 ## Resources
