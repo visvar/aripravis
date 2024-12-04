@@ -1,6 +1,6 @@
 {
   "name": "backend-midi-server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Receives Web MIDI and sends it via WebSockets to the client.",
   "main": "index.js",
   "type": "module",
