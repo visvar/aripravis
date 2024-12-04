@@ -1,22 +1,17 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { onDestroy } from 'svelte';
   import * as d3 from 'd3';
-  import { height, Note } from 'tonal';
+  import { Note } from 'tonal';
   import 'aframe';
   import 'aframe-svelte';
   import { Midi } from 'musicvis-lib';
-  import { roundToStep } from '../lib/lib';
   import MidiInput from '../components/midi-input.svelte';
-  import * as AFRAME from 'aframe';
-  import {
-    fretPositions,
-    fretPositionsMeter,
-  } from '../lib/guitar-fret-spacing';
+  import { fretPositionsMeter } from '../lib/guitar-fret-spacing';
   import ColorLegend from '../components/color-legend.svelte';
 
   let stringCount = 6;
   const stringPositions = d3.range(stringCount).map((d) => d * 0.007);
-  let fretCount = fretPositions.length;
+  let fretCount = fretPositionsMeter.length;
   // E standard tuning, strings start at high E
   let tuningPitches = [64, 59, 55, 50, 45, 40];
   const tuningNotes = tuningPitches.map(Note.fromMidiSharps);

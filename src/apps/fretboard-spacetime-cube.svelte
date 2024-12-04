@@ -97,32 +97,6 @@
 		lastTimeSeconds = noteInSeconds;
 	};
 
-	onMount(() => {
-		// https://github.com/aframevr/aframe/blob/master/docs/components/oculus-touch-controls.md#events
-		// console.log(AFRAME);
-		AFRAME.registerComponent('thumbstick-logging', {
-			init: function () {
-				this.el.addEventListener('thumbstickmoved', this.logThumbstick);
-			},
-			logThumbstick: function (evt) {
-				let direction = '';
-				if (evt.detail.y > 0.95) {
-					direction = 'DOWN';
-				}
-				if (evt.detail.y < -0.95) {
-					direction = 'UP';
-				}
-				if (evt.detail.x < -0.95) {
-					direction = 'LEFT';
-				}
-				if (evt.detail.x > 0.95) {
-					direction = 'RIGHT';
-				}
-				debugMsg = `x ${evt.detail.x} y ${evt.detail.y} dir ${direction}`;
-			},
-		});
-	});
-
 	onDestroy(() => {
 		clearInterval(testInterval);
 		// window.location.reload();

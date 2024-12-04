@@ -3,8 +3,8 @@
   import FretboardHeatmap from './apps/fretboard-heatmap.svelte';
   import FretboardSpacetimeCube from './apps/fretboard-spacetime-cube.svelte';
   import HandsTest from './apps/hands-test.svelte';
-  import PassthroughTest from './apps/passthrough-test.svelte';
   import FretboardBarChart from './apps/fretboard-bar-chart.svelte';
+  import TimelineTest from './apps/timeline-test.svelte';
 
   const pw = 'ari';
   let spw = localStorage.getItem('pw') ?? '';
@@ -62,9 +62,9 @@
       component: FretboardBarChart,
     },
     {
-      id: 'passthrough-test',
-      title: 'Passthrough Test',
-      component: PassthroughTest,
+      id: 'timeline-test',
+      title: 'Timeline Test',
+      component: TimelineTest,
     },
     {
       id: 'hands-test',
