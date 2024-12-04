@@ -62,15 +62,15 @@
         >
         </a-plane>
         <a-text
-            position="{scaleTime(note.time) + 0.001} {scaleString(
+            position="{scaleTime(note.time + note.duration / 2)} {scaleString(
                 note.string,
             )} 0.004"
             width={5}
             value={note.fret}
             color="#333"
             scale=".015 .015 .015"
-            align="left"
-            anchor="left"
+            align="center"
+            anchor="center"
         >
         </a-text>
     {/each}
