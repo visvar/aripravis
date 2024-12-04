@@ -8,6 +8,7 @@
   import MidiInput from '../components/midi-input.svelte';
   import { fretPositionsMeter } from '../lib/guitar-fret-spacing';
   import ColorSwatches from '../components/color-swatches.svelte';
+  import PcKeyboardInput from '../components/pc-keyboard-input.svelte';
 
   let stringCount = 6;
   const stringPositions = d3.range(stringCount).map((d) => d * 0.007);
@@ -23,6 +24,7 @@
   let notes = [];
   let binnedNotes;
   let maxValue = 1;
+  let maxHeight = 0.02;
 
   // create random data until MIDI input is received
   const randomNote = (time) => {
@@ -82,7 +84,7 @@
 
   $: binNotes(notes);
 
-  $: heightMap = d3.scaleLinear().domain([0, maxValue]).range([0, 0.02]);
+  $: heightMap = d3.scaleLinear().domain([0, maxValue]).range([0, maxHeight]);
 
   onDestroy(() => {
     clearInterval(testInterval);
@@ -94,6 +96,19 @@
     ['outside scale', 'orange'],
   ]);
 </script>
+
+<PcKeyboardInput
+  key="+"
+  keyDown={() => {
+    maxHeight += 0.005;
+  }}
+/>
+<PcKeyboardInput
+  key="-"
+  keyDown={() => {
+    maxHeight -= 0.005;
+  }}
+/>
 
 <a-scene
   xrweb="mode: immersive-ar;"

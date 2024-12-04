@@ -2,13 +2,14 @@
 
 - [ ] passthrough
 - [ ] hand tracking
-- [ ] controller input
 - [ ] settings
   - [ ] buttons
   - [ ] slider
   - [ ] shortcuts, changing values with joystick etc
 - [ ] direct interaction, e.g., pitch and drag to scale time
 - [ ] attach vis to controller
+  - [ ] controller input
+  - [ ] get controller position
   - [ ] calibration mode (mark two points wtih controller)
   - [x] scale fretbord according to instrument
   - [ ] scale keyboard according to instrument
@@ -39,14 +40,23 @@
   - [x] server pushes midi messages
   - [x] client connects to server
   - [ ] test with phone and HMD
+
+## Later
+
 - [ ] show chords
   - [ ] color per chord
   - [ ] put them into bbox?
-
+- [ ] haptic feedback?
+  - [ ] metronome
+  - [ ] input/state events, e.g., slider moving
+- [ ] acoustic feedback?
+  - [ ] button interaction, saving, ...
 
 
 ## Resources
 
+- a-frame components
+  - https://www.npmjs.com/search?q=keywords:aframe&page=1&ranking=optimal
 
 - passthrough
   - according to this you have to do nothing https://timmykokke.com/blog/2023/2023-02-03-webxr-pass-through/

@@ -5,6 +5,9 @@
   import HandsTest from './apps/hands-test.svelte';
   import FretboardBarChart from './apps/fretboard-bar-chart.svelte';
   import TimelineTest from './apps/timeline-test.svelte';
+  import ControllerTest from './apps/controller-test.svelte';
+  import PcKeyboardInput from './components/pc-keyboard-input.svelte';
+  import PianoHeatmap from './apps/piano-heatmap.svelte';
 
   const pw = 'ari';
   let spw = localStorage.getItem('pw') ?? '';
@@ -62,6 +65,11 @@
       component: FretboardBarChart,
     },
     {
+      id: 'piano-heatmpa',
+      title: 'Piano Heatmap',
+      component: PianoHeatmap,
+    },
+    {
       id: 'timeline-test',
       title: 'Timeline Test',
       component: TimelineTest,
@@ -71,24 +79,26 @@
       title: 'Hands Test',
       component: HandsTest,
     },
+    {
+      id: 'controller-test',
+      title: 'Controller Test',
+      component: ControllerTest,
+    },
   ];
 
   let currentApp = null;
-
-  const keyDown = (evt) => {
-    console.log(evt);
-
-    if (evt.key === 'Escape') {
-      currentApp = null;
-    }
-  };
 
   onDestroy(() => {
     ws?.close();
   });
 </script>
 
-<svelte:window on:keydown={keyDown} />
+<PcKeyboardInput
+  key="Escape"
+  keyDown={() => {
+    currentApp = null;
+  }}
+/>
 
 <main>
   {#if spw !== pw}
