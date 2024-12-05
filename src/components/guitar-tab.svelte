@@ -51,7 +51,7 @@
         </a-plane>
     {/each}
     <!-- notes -->
-    {#each notes as note}
+    {#each notes as note (note.time)}
         <a-plane
             position="{scaleTime(note.time + note.duration / 2)} {scaleString(
                 note.string,
