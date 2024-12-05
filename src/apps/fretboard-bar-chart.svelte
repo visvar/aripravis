@@ -136,13 +136,6 @@
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
 >
   <a-camera wasd-controls="acceleration:10; fly: true">
-    <!-- <a-entity
-      cursor
-      geometry="primitive: box; scale: 0.01 0.01 0.01;"
-      material="color: green"
-      position="0 0 -0.1"
-    >
-    </a-entity> -->
     <a-cursor position="0 0 -0.1" scale="0.1 0.1 0.1"></a-cursor>
   </a-camera>
   <!-- controllers -->

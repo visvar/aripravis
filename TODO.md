@@ -4,11 +4,9 @@
 - [ ] hand tracking
 - [ ] settings
   - [x] buttons
+  - [ ] toggle button
   - [ ] allow to change view (heatmap, barchart, ..., off)
   - [ ] allow to change timeline (paino roll, guitar tab, off)
-  - [ ] MIDI control, toggled with hand button, then used to change values quickly
-    - [ ] select scale root
-    - [ ] select scale degrees to color
 - [ ] attach vis to controller
   - [x] scale fretbord according to instrument
   - [x] scale keyboard according to instrument
@@ -34,12 +32,14 @@
 - [ ] timeline
   - [x] piano roll
   - [x] tab
+  - [ ] performance improvement with https://github.com/mayognaise/aframe-draw-shader
   - [ ] brushing & linking to filter time
 - [ ] midi streaming from PC to HMD via websockets
   - see https://github.com/fheyen/synced-guitar-tabs
   - [x] server takes midi input
   - [x] server pushes midi messages
   - [x] client connects to server
+  - [x] test server with random midi
   - [ ] test with phone and HMD
 
 ## Next
@@ -47,6 +47,9 @@
 - [ ] data storage and loading
 - [ ] direct interaction, e.g., pitch and drag to scale time
 - [ ] facetting/small multiples
+- [ ] MIDI control, toggled with hand button, then used to change values quickly
+  - [ ] select scale root
+  - [ ] select scale degrees to color
 
 ## Later
 
@@ -72,7 +75,9 @@
 - a-frame tutorial
   - https://www.youtube.com/playlist?list=PLP3KjR1TMw7ekqC4o5gy0rR4odw7Jga84
 - a-frame components
-  - https://www.npmjs.com/search?q=keywords:aframe&page=1&ranking=optimal
+  - npm search https://www.npmjs.com/search?q=keywords:aframe&page=1&ranking=optimal
+  - collection https://github.com/supermedium/superframe#readme
+  - draw texture like an HTML canvas https://github.com/mayognaise/aframe-draw-shader
 - passthrough
   - according to this you have to do nothing https://timmykokke.com/blog/2023/2023-02-03-webxr-pass-through/
   - https://stackoverflow.com/questions/79068376/what-happened-to-ar-mode-in-aframe
@@ -85,3 +90,5 @@
   - https://aframe.io/docs/1.6.0/introduction/interactions-and-controllers.html
 - can we improve performance with this?
   - https://aframe.io/docs/1.6.0/components/renderer.html#multiviewstereo
+
+- audio anlyzer https://github.com/supermedium/superframe/tree/master/components/audioanalyser/

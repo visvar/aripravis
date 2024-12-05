@@ -20,8 +20,12 @@
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
 >
   <!-- controllers -->
-  <a-entity oculus-touch-controls="hand: left" modelOpacity="0.5"></a-entity>
-  <a-entity oculus-touch-controls="hand: right" modelOpacity="0.5"></a-entity>
+  <a-entity oculus-touch-controls="hand: left" modelOpacity="0.5">
+    <a-box color="yellow" scale="0.1 0.1 0.1"></a-box>
+  </a-entity>
+  <a-entity oculus-touch-controls="hand: right" modelOpacity="0.5">
+    <a-box color="red" scale="0.1 0.1 0.1"></a-box>
+  </a-entity>
   <!-- hand tracking -->
   <a-entity id="leftHand" hand-tracking-controls="hand: left;"></a-entity>
   <a-entity id="rightHand" hand-tracking-controls="hand: right;"></a-entity>
