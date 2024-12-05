@@ -223,10 +223,8 @@
         <a-cylinder
           position={`
           ${(fretPositionsMeter[fretPos] + fretPositionsMeter[fretPos - 1]) / 2}
-
           0
-
-          ${(stringPositions[stringPos] + stringPositions[stringPos - 1]) / 2}`}
+          ${stringPositions[stringPos]}`}
           color={colorMap(notes.length)}
           radius="0.002"
           height={0.001}

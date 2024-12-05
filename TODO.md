@@ -3,9 +3,9 @@
 - [x] passthrough
 - [ ] hand tracking
 - [ ] settings
-  - [ ] buttons
-  - [ ] slider
-  - [ ] shortcuts, changing values with joystick etc
+  - [x] buttons
+  - [ ] allow to change view (heatmap, barchart, ..., off)
+  - [ ] allow to change timeline (paino roll, guitar tab, off)
   - [ ] MIDI control, toggled with hand button, then used to change values quickly
     - [ ] select scale root
     - [ ] select scale degrees to color
@@ -15,24 +15,25 @@
   - [ ] controller input
   - [ ] get controller position
   - [ ] calibration mode (mark two points wtih controller)
+    - [ ] or superhand to just grab and drag there? https://www.youtube.com/watch?v=vQ85u3dzmZY&list=PLP3KjR1TMw7ekqC4o5gy0rR4odw7Jga84&index=13
 - [ ] visualizations
   - [x] guitar heatmap
   - [x] guitar bar chart
   - [x] guitar 3D scatterplot
-  - [ ] piano heatmap
+  - [x] piano heatmap
   - [ ] piano bar chart
   - [ ] piano 3D scatterplot
   - [ ] ...
-- [ ] scale select
-  - [ ] color vis by scale (in/outside)
+- [x] scale select
+  - [x] color vis by scale (in/outside)
   - [ ] color vis by scale degrees (e.g., 1 4 7)
 - [ ] legends
   - [x] color legend continuous
     - [ ] d3 ticks for better look
   - [x] color legend swatches
 - [ ] timeline
-  - [ ] piano roll
-  - [ ] tab
+  - [x] piano roll
+  - [x] tab
   - [ ] brushing & linking to filter time
 - [ ] midi streaming from PC to HMD via websockets
   - see https://github.com/fheyen/synced-guitar-tabs
@@ -49,14 +50,13 @@
 
 ## Later
 
+- [ ] slider input
 - [ ] show chords
   - [ ] color per chord
   - [ ] put them into bbox?
 - [ ] haptic feedback?
   - [ ] metronome
   - [ ] input/state events, e.g., slider moving
-- [ ] acoustic feedback? (tone.js? howler?) https://aframe.io/docs/1.6.0/components/sound.html#main
-  - [ ] button interaction, saving, ...
 
 ## Maybe
 
@@ -69,9 +69,10 @@
 
 ## Resources
 
+- a-frame tutorial
+  - https://www.youtube.com/playlist?list=PLP3KjR1TMw7ekqC4o5gy0rR4odw7Jga84
 - a-frame components
   - https://www.npmjs.com/search?q=keywords:aframe&page=1&ranking=optimal
-
 - passthrough
   - according to this you have to do nothing https://timmykokke.com/blog/2023/2023-02-03-webxr-pass-through/
   - https://stackoverflow.com/questions/79068376/what-happened-to-ar-mode-in-aframe

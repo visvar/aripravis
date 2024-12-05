@@ -1,7 +1,7 @@
 <script>
   import { onDestroy } from 'svelte';
   import * as d3 from 'd3';
-  import { Note } from 'tonal';
+  import { Note, Scale } from 'tonal';
   import 'aframe';
   import 'aframe-svelte';
   import { Midi } from 'musicvis-lib';
@@ -9,6 +9,10 @@
   import { fretPositionsMeter } from '../lib/guitar-fret-spacing';
   import ColorSwatches from '../components/color-swatches.svelte';
   import PcKeyboardInput from '../components/pc-keyboard-input.svelte';
+  import Button from '../components/button.svelte';
+  import NumberInput from '../components/number-input.svelte';
+  import ScaleSelect from '../components/scale-select.svelte';
+  import { NOTE_TO_CHROMA_MAP } from '../lib/music.js';
 
   let stringCount = 6;
   const stringPositions = d3.range(stringCount).map((d) => d * 0.007);
@@ -24,11 +28,26 @@
   let notes = [];
   let binnedNotes;
   let maxValue = 1;
-  let maxHeight = 0.02;
+  let maxHeightDefault = 0.02;
+  let maxHeight = maxHeightDefault;
+  let tempo = 120;
+  let root = 'C';
+  let scale = 'major';
+  $: scaleInfo = Scale.get(`${root} ${scale}`);
+  $: scaleChromaSet = new Set(
+    scaleInfo ? scaleInfo.notes.map((d) => NOTE_TO_CHROMA_MAP.get(d)) : [],
+  );
+  const isInScale = (string, fret, tuningPitches, scaleInfo) => {
+    if (!scaleInfo) {
+      return false;
+    }
+    const chroma = (tuningPitches[string] + fret) % 12;
+    return scaleChromaSet.has(chroma);
+  };
 
   // create random data until MIDI input is received
   const randomNote = (time) => {
-    const string = Math.floor(Math.random() * 6);
+    const string = Math.round(Math.random() * 6);
     const fret = Math.round(Math.random() * 24);
     const velocity = Math.round(Math.random() * 127);
     const midiNr = tuningPitches[string] + fret;
@@ -37,13 +56,14 @@
       string,
       fret,
       time,
+      number: midiNr,
       note: Midi.NOTE_NAMES[midiNr % 12],
       velocity,
     };
   };
   let testInterval = setInterval(
     () => (notes = [...notes, randomNote(performance.now() / 1000)]),
-    500,
+    250,
   );
 
   let debugMsg = '';
@@ -115,6 +135,16 @@
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
 >
+  <a-camera wasd-controls="acceleration:10; fly: true">
+    <!-- <a-entity
+      cursor
+      geometry="primitive: box; scale: 0.01 0.01 0.01;"
+      material="color: green"
+      position="0 0 -0.1"
+    >
+    </a-entity> -->
+    <a-cursor position="0 0 -0.1" scale="0.1 0.1 0.1"></a-cursor>
+  </a-camera>
   <!-- controllers -->
   <a-entity oculus-touch-controls="hand: left"></a-entity>
   <a-entity oculus-touch-controls="hand: right"></a-entity>
@@ -149,6 +179,34 @@
 
     <!-- color legend -->
     <ColorSwatches {colorMap} title="Note type" />
+    <!-- settings -->
+    <Button
+      label="reset"
+      onClick={() => {
+        notes = [];
+      }}
+      position="0.08 0.01 0"
+    />
+    <NumberInput
+      label="tempo"
+      bind:value={tempo}
+      defaultValue={120}
+      min={60}
+      max={200}
+      step={5}
+      position="0.07 0.03 0"
+      showValue
+    />
+    <NumberInput
+      label="bar size"
+      bind:value={maxHeight}
+      defaultValue={maxHeightDefault}
+      min={0}
+      max={0.05}
+      step={0.001}
+      position="0.07 0.05 0"
+    />
+    <ScaleSelect bind:root bind:scale position="0.07 0.07 0" />
     <!-- fretboard -->
     {#each d3.range(stringCount) as string}
       <!-- strings -->
@@ -242,8 +300,12 @@
 
           ${heightMap(notes.length) / 2}
 
-          ${(stringPositions[stringPos] + stringPositions[stringPos - 1]) / 2}`}
-          color={colorMap.get(fretPos % 2 === 0 ? 'in scale' : 'outside scale')}
+          ${stringPositions[stringPos]}`}
+          color={colorMap.get(
+            isInScale(stringPos, fretPos, tuningPitches, scaleInfo)
+              ? 'in scale'
+              : 'outside scale',
+          )}
           radius="0.002"
           height={heightMap(notes.length)}
         ></a-cylinder>
