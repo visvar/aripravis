@@ -1,15 +1,12 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
   import 'aframe';
   import 'aframe-svelte';
-  import * as AFRAME from 'aframe';
+  // import * as AFRAME from 'aframe';
 
   /**
    * button that reacts to clicks, controller point and click, and index finger collision
    * TODO: controller
    * TODO: hand collision
-   * TODO: change color on click and hover
-   * TODO: make click sound
    */
 
   export let label = 'button';
@@ -18,28 +15,29 @@
   export let width = 0.02;
   export let height = 0.01;
 
-  const component = 'button';
-
-  onMount(() => {
-    // console.log(AFRAME);
-    if (AFRAME.components[component]) {
-      AFRAME.components[component] = undefined;
-    }
-    // https://aframe.io/docs/1.6.0/introduction/writing-a-component.html
-    AFRAME.registerComponent(component, {
-      init: function () {
-        this.el.addEventListener('click', this.click);
-      },
-      remove: function () {
-        this.el.removeEventListener('click', this.click);
-      },
-      multiple: true,
-      // functions
-      click: function (evt) {
-        onClick(evt);
-      },
-    });
-  });
+  // const component = 'button';
+  // onMount(() => {
+  //   // console.log(AFRAME);
+  //   if (AFRAME.components[component]) {
+  //     AFRAME.components[component] = undefined;
+  //   }
+  //   // https://aframe.io/docs/1.6.0/introduction/writing-a-component.html
+  //   AFRAME.registerComponent(component, {
+  //     init: function () {
+  //       this.el.addEventListener('click', this.click);
+  //       this.el.addEventListener('touchstart', this.click);
+  //     },
+  //     remove: function () {
+  //       this.el.removeEventListener('click', this.click);
+  //       this.el.removeEventListener('touchstart', this.click);
+  //     },
+  //     multiple: true,
+  //     // functions
+  //     click: function (evt) {
+  //       onClick(evt);
+  //     },
+  //   });
+  // });
 </script>
 
 <a-entity {position}>
@@ -49,11 +47,12 @@
     color="#333"
     {width}
     {height}
-    animation__down="position; from: 0 0 0; to: 0 0 0.0025; dur: 500; startEvents: mousedown;"
+    animation__down="property: position; from: 0 0 0; to: 0 0 0.0025; dur: 200; startEvents: mousedown;"
     animation__enter="property: color; from: #333; to: #888; dur: 200; startEvents: mouseenter;"
     animation__out="property: color; from: #888; to: #333; dur: 200; startEvents: mouseleave;"
     sound="src: url(mouse-click.mp3); on: click; poolSize: 30;"
     onclick={onClick}
+    ontouchstart={onClick}
   >
     <a-text
       value={label}

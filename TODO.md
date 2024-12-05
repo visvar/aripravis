@@ -2,8 +2,11 @@
 
 - [x] passthrough
 - [ ] hand tracking
+  - [ ] maybe use https://github.com/c-frame/aframe-super-hands-component
 - [ ] settings
   - [x] buttons
+  - [ ] make work with touch on phone
+  - [ ] make work with hand tracking
   - [ ] toggle button
   - [ ] allow to change view (heatmap, barchart, ..., off)
   - [ ] allow to change timeline (paino roll, guitar tab, off)

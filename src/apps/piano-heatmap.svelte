@@ -7,6 +7,7 @@
   import { Midi } from 'musicvis-lib';
   import MidiInput from '../components/midi-input.svelte';
   import ColorLegend from '../components/color-legend.svelte';
+  import ToggleButton from '../components/toggle-button.svelte';
 
   export const minPitch = 21;
   export const maxPitch = 108;
@@ -52,6 +53,7 @@
   let notes = [];
   let binnedNotes = new Map();
   let maxValue = 1;
+  let showNoteLabels = true;
 
   // create random data until MIDI input is received
   const randomNote = (time) => {
@@ -106,6 +108,10 @@
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
 >
+  <!-- camera -->
+  <a-camera wasd-controls="acceleration:10; fly: true">
+    <a-cursor position="0 0 -0.1" scale="0.1 0.1 0.1"></a-cursor>
+  </a-camera>
   <!-- controllers -->
   <a-entity oculus-touch-controls="hand: left"></a-entity>
   <a-entity oculus-touch-controls="hand: right"></a-entity>
@@ -120,6 +126,11 @@
     visible="true"
     opacity="0"
   >
+    <ToggleButton
+      label="note labels"
+      bind:checked={showNoteLabels}
+      position="0.05 0.05 0"
+    />
     <!-- text with explanation -->
     <a-entity
       text="value: Keyboard Heatmap; color: #888; width: 5"
@@ -148,7 +159,7 @@
         opacity="0.5"
       >
       </a-box>
-      {#if !k.isBlack}
+      {#if showNoteLabels && !k.isBlack}
         <a-text
           value={k.number % 12 === 0
             ? `${k.note}\n${Math.floor(k.number / 12)}`
