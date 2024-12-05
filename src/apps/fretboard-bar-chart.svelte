@@ -13,7 +13,9 @@
   import NumberInput from '../components/number-input.svelte';
   import ScaleSelect from '../components/scale-select.svelte';
   import { NOTE_TO_CHROMA_MAP } from '../lib/music.js';
+  import MetronomeButton from '../components/metronome-button.svelte';
 
+  export let currentApp;
   let stringCount = 6;
   const stringPositions = d3.range(stringCount).map((d) => d * 0.007);
   let fretCount = fretPositionsMeter.length;
@@ -135,6 +137,7 @@
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
 >
+  <!-- camera -->
   <a-camera wasd-controls="acceleration:10; fly: true">
     <a-cursor position="0 0 -0.1" scale="0.1 0.1 0.1"></a-cursor>
   </a-camera>
@@ -180,7 +183,15 @@
       }}
       position="0.08 0.01 0"
     />
-    <NumberInput
+    <!-- home button -->
+    <Button
+      label="quit"
+      onClick={() => {
+        currentApp = null;
+      }}
+      position="0.105 0.01 0"
+    />
+    <!-- <NumberInput
       label="tempo"
       bind:value={tempo}
       defaultValue={120}
@@ -189,7 +200,8 @@
       step={5}
       position="0.07 0.03 0"
       showValue
-    />
+      /> -->
+    <MetronomeButton bind:tempo position="0.07 0.03 0" />
     <NumberInput
       label="bar size"
       bind:value={maxHeight}

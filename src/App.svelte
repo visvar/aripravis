@@ -8,6 +8,7 @@
   import ControllerTest from './apps/controller-test.svelte';
   import PcKeyboardInput from './components/pc-keyboard-input.svelte';
   import PianoHeatmap from './apps/piano-heatmap.svelte';
+  import { version } from '../package.json';
 
   const pw = 'ari';
   let spw = localStorage.getItem('pw') ?? '';
@@ -120,6 +121,7 @@
     {/each}
 
     <div>
+      <h3>Connect to a separate MIDI PC (optional)</h3>
       <input type="text" placeholder="WebSocket URL" bind:value={wsUrl} />
       <div>
         {connected ? 'connected' : 'not found'}
@@ -127,11 +129,12 @@
     </div>
 
     <footer>
+      version {version} |
       <a href="https://github.com/visvar/aripravis" target="_blank">GitHub</a>
     </footer>
   {:else}
     <!-- show app by importing dynamically -->
-    <svelte:component this={currentApp.component} appInfo={currentApp} />
+    <svelte:component this={currentApp.component} bind:currentApp />
   {/if}
 </main>
 

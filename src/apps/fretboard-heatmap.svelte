@@ -96,6 +96,10 @@
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
 >
+  <!-- camera -->
+  <a-camera wasd-controls="acceleration:10; fly: true">
+    <a-cursor position="0 0 -0.1" scale="0.1 0.1 0.1"></a-cursor>
+  </a-camera>
   <!-- controllers -->
   <a-entity oculus-touch-controls="hand: left"></a-entity>
   <a-entity oculus-touch-controls="hand: right"></a-entity>

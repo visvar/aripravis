@@ -3,6 +3,9 @@
   import 'aframe';
   import 'aframe-svelte';
   import * as AFRAME from 'aframe';
+  import Button from '../components/button.svelte';
+
+  export let currentApp;
 
   /**
    * - allow interaction to reset notes and scale time
@@ -76,6 +79,10 @@
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
 >
+  <!-- camera -->
+  <a-camera wasd-controls="acceleration:10; fly: true">
+    <a-cursor position="0 0 -0.1" scale="0.1 0.1 0.1"></a-cursor>
+  </a-camera>
   <!-- controllers -->
   <a-entity meta-touch-controls="hand: left; model: true" thumbstick-logging>
     <a-box color="yellow" scale="0.1 0.1 0.1"></a-box>
@@ -89,4 +96,12 @@
     position="-0 0 -3"
     scale=".25 .25 .25"
   ></a-entity>
+  <!-- home button -->
+  <Button
+    label="quit"
+    onClick={() => {
+      currentApp = null;
+    }}
+    position="0 1.6 -0.2"
+  />
 </a-scene>

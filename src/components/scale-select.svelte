@@ -43,7 +43,7 @@
         color="steelblue"
         width="0.01"
         height="0.001"
-        position="{width + 0.012 * index + 0.01} 0.01 0.001"
+        position="{width + 0.012 * index + 0.01} {height - 0.0005} 0.002"
       ></a-plane>
     {/if}
   {/each}
@@ -73,7 +73,7 @@
         color="steelblue"
         width="0.03"
         height="0.001"
-        position="{width + 0.032 * index + 0.02} -0.005 0.001"
+        position="{width + 0.032 * index + 0.02} -0.0055 0.002"
       ></a-plane>
     {/if}
   {/each}

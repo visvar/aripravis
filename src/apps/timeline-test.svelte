@@ -133,6 +133,15 @@
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
 >
+  <!-- camera -->
+  <a-entity
+    camera
+    look-controls
+    wasd-controls="acceleration:10; fly: true"
+    position="0 1.6 0"
+  >
+    <a-cursor position="0 0 -0.1" scale="0.1 0.1 0.1"></a-cursor>
+  </a-entity>
   <!-- FPS -->
   <a-entity position="0.07 1.62 -0.25">
     <a-entity fps-counter scale="0.1 0.1 0.1"></a-entity>
@@ -156,15 +165,6 @@
       }}
       position="0.03 0.007 0"
     />
-  </a-entity>
-  <!-- camera -->
-  <a-entity
-    camera
-    look-controls
-    wasd-controls="acceleration:10; fly: true"
-    position="0 1.6 0"
-  >
-    <a-cursor position="0 0 -0.1" scale="0.1 0.1 0.1"></a-cursor>
   </a-entity>
   {#if showPianoRoll}
     <a-box
