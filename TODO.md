@@ -1,15 +1,34 @@
 # TODO
 
+1. [TODO](#todo)
+   1. [Done](#done)
+   2. [Urgent](#urgent)
+   3. [Next](#next)
+   4. [Later](#later)
+   5. [Maybe](#maybe)
+   6. [Resources](#resources)
+
+
+## Done
+
 - [x] passthrough
+
+## Urgent
+
+- [ ] fix performance
+  - https://github.com/aframevr/aframe/blob/master/docs/introduction/best-practices.md
+  - https://aframe.io/docs/1.6.0/components/renderer.html#multiviewstereo
+
+
 - [ ] hand tracking
   - [ ] maybe use https://github.com/c-frame/aframe-super-hands-component
 - [ ] settings
   - [x] buttons
+  - [x] toggle button
   - [ ] make work with touch on phone
   - [ ] make work with hand tracking
-  - [ ] toggle button
   - [ ] allow to change view (heatmap, barchart, ..., off)
-  - [ ] allow to change timeline (paino roll, guitar tab, off)
+  - [x] allow to change timeline (paino roll, guitar tab, off)
 - [ ] attach vis to controller
   - [x] scale fretbord according to instrument
   - [x] scale keyboard according to instrument
@@ -53,14 +72,17 @@
 - [ ] MIDI control, toggled with hand button, then used to change values quickly
   - [ ] select scale root
   - [ ] select scale degrees to color
+- [ ] record hand tracking
+  - https://www.npmjs.com/package/aframe-motion-capture-components
+  - [ ] match notes to hand and fingers
 
 ## Later
 
-- [ ] slider input
 - [ ] show chords
   - [ ] color per chord
   - [ ] put them into bbox?
 - [ ] haptic feedback?
+  - https://github.com/supermedium/superframe/tree/master/components/haptics/
   - [ ] metronome
   - [ ] input/state events, e.g., slider moving
 
@@ -71,6 +93,10 @@
   - [ ] drum kit
   - [ ] kajon
   - [ ] saxophone
+- [ ] record audio through quest mic and play back with https://www.youtube.com/watch?v=JBtBQQ_mKw4&list=PLP3KjR1TMw7ekqC4o5gy0rR4odw7Jga84&index=15
+
+
+
 
 
 ## Resources
@@ -81,6 +107,8 @@
   - npm search https://www.npmjs.com/search?q=keywords:aframe&page=1&ranking=optimal
   - collection https://github.com/supermedium/superframe#readme
   - draw texture like an HTML canvas https://github.com/mayognaise/aframe-draw-shader
+- world and object coordinates
+  - https://aframe.io/docs/1.6.0/introduction/developing-with-threejs.html
 - passthrough
   - according to this you have to do nothing https://timmykokke.com/blog/2023/2023-02-03-webxr-pass-through/
   - https://stackoverflow.com/questions/79068376/what-happened-to-ar-mode-in-aframe
@@ -91,7 +119,5 @@
   - https://immersive-web.github.io/webxr-samples/
 - controllers
   - https://aframe.io/docs/1.6.0/introduction/interactions-and-controllers.html
-- can we improve performance with this?
-  - https://aframe.io/docs/1.6.0/components/renderer.html#multiviewstereo
 
 - audio anlyzer https://github.com/supermedium/superframe/tree/master/components/audioanalyser/

@@ -9,6 +9,7 @@
   import PcKeyboardInput from './components/pc-keyboard-input.svelte';
   import PianoHeatmap from './apps/piano-heatmap.svelte';
   import { version } from '../package.json';
+  import VibrateTest from './apps/vibrate-test.svelte';
 
   const pw = 'ari';
   let spw = localStorage.getItem('pw') ?? '';
@@ -84,6 +85,11 @@
       id: 'controller-test',
       title: 'Controller Test',
       component: ControllerTest,
+    },
+    {
+      id: 'vibrate-test',
+      title: 'Vibrate Test',
+      component: VibrateTest,
     },
   ];
 
