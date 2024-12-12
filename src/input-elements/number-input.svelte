@@ -1,6 +1,4 @@
 <script>
-  import 'aframe';
-  import 'aframe-svelte';
   import Button from './button.svelte';
 
   export let value = 0;

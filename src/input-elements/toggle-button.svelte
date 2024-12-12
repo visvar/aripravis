@@ -1,7 +1,4 @@
 <script>
-  import 'aframe';
-  import 'aframe-svelte';
-
   export let label = 'button';
   export let checked = true;
   export let position = '0 0 0';

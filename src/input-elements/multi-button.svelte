@@ -1,6 +1,4 @@
 <script>
-  import 'aframe';
-  import 'aframe-svelte';
   import Button from './button.svelte';
 
   export let value;
@@ -38,7 +36,7 @@
         color="steelblue"
         width="0.03"
         height="0.001"
-        position="{width + 0.532 * index + 0.02} -0.0055 0.001"
+        position="{width + 0.032 * index + 0.02} -0.0055 0.001"
       ></a-plane>
     {/if}
   {/each}

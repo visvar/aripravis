@@ -1,7 +1,5 @@
 <script>
   import * as d3 from 'd3';
-  import 'aframe';
-  import 'aframe-svelte';
   import { roundToStep } from '../lib/lib';
   import { fretPositionsMeter } from '../lib/guitar-fret-spacing.js';
 

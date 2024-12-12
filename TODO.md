@@ -17,6 +17,7 @@
 
 - [ ] fix performance
   - [x] use plane, circle instead of cylinder and reduce cylinder triangles
+  - [ ] turn off antialiasing
   - https://github.com/aframevr/aframe/blob/master/docs/introduction/best-practices.md
   - https://aframe.io/docs/1.6.0/components/renderer.html#multiviewstereo
   - webworkers? https://infinitejs.com/posts/aframe-vr-dev-performance-issues/
@@ -44,7 +45,7 @@
   - [x] guitar 3D scatterplot
   - [x] piano heatmap
   - [ ] piano bar chart
-  - [ ] piano 3D scatterplot
+  - [ ] piano roll on top of piano
   - [ ] ...
 - [x] scale select
   - [x] color vis by scale (in/outside)
@@ -57,7 +58,6 @@
   - [x] piano roll
   - [x] tab
   - [ ] performance improvement with https://github.com/mayognaise/aframe-draw-shader
-  - [ ] brushing & linking to filter time
 - [ ] midi streaming from PC to HMD via websockets
   - see https://github.com/fheyen/synced-guitar-tabs
   - [x] server takes midi input
@@ -77,6 +77,8 @@
 - [ ] record hand tracking
   - https://www.npmjs.com/package/aframe-motion-capture-components
   - [ ] match notes to hand and fingers
+- [ ] timeline
+  - [ ] brushing & linking to filter time
 
 ## Later
 

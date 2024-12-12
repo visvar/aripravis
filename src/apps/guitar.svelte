@@ -84,11 +84,18 @@
 
 <MidiInput {noteOn} />
 
+<!-- <a-scene
+  stats
+  xrweb="mode: immersive-ar;"
+  xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
+  renderer="colorManagement: true; multiviewStereo: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+  raycaster="objects: [data-raycastable]; far:1;"
+> -->
 <a-scene
   stats
   xrweb="mode: immersive-ar;"
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
-  renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+  renderer="colorManagement: true; multiviewStereo: true;"
   raycaster="objects: [data-raycastable]; far:1;"
 >
   <!-- camera -->
@@ -104,7 +111,7 @@
   <!-- visualization container -->
   <a-entity position="-0.1 1.5 -0.25">
     <!-- settings menu -->
-    <a-entity position="-0.15 0.15 0">
+    <a-entity position="-0.15 0.15 0" scale="1.5 1.5 1.5">
       <MultiButton
         label="encoding"
         values={encodings}

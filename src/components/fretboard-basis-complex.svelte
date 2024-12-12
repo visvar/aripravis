@@ -6,8 +6,6 @@
 
   import * as d3 from 'd3';
   import { Note } from 'tonal';
-  import 'aframe';
-  import 'aframe-svelte';
   import { fretPositionsMeter } from '../lib/guitar-fret-spacing';
 
   let stringCount = 6;

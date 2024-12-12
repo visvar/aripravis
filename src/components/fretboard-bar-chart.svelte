@@ -1,12 +1,9 @@
 <script>
   import * as d3 from 'd3';
   import { Scale } from 'tonal';
-  import 'aframe';
-  import 'aframe-svelte';
   import { fretPositionsMeter } from '../lib/guitar-fret-spacing';
   import ColorSwatches from './color-swatches.svelte';
   import PcKeyboardInput from '../input-handlers/pc-keyboard-input.svelte';
-  import Button from '../input-elements/button.svelte';
   import NumberInput from '../input-elements/number-input.svelte';
   import ScaleSelect from '../input-elements/scale-select.svelte';
   import { NOTE_TO_CHROMA_MAP } from '../lib/music.js';
