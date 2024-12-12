@@ -35,7 +35,7 @@
       onClick={() => {
         root = note;
       }}
-      position="{width + 0.012 * index + 0.01} 0.015 0"
+      position="{width + 0.012 * index + 0.005} 0.015 0"
       width={0.01}
     />
     {#if note === root}
@@ -65,7 +65,7 @@
       onClick={() => {
         scale = scaleName;
       }}
-      position="{width + 0.032 * index + 0.02} 0 0"
+      position="{width + 0.032 * index + 0.005} 0 0"
       width={0.03}
     />
     {#if scaleName === scale}
@@ -73,7 +73,7 @@
         color="steelblue"
         width="0.03"
         height="0.001"
-        position="{width + 0.032 * index + 0.02} -0.0055 0.002"
+        position="{width + 0.032 * index + 0.02} -0.0055 0.001"
       ></a-plane>
     {/if}
   {/each}

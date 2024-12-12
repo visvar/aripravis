@@ -97,7 +97,7 @@
   </a-camera>
   <!-- controllers -->
   <a-entity meta-touch-controls="hand: left; model: true" thumbstick-logging>
-    <a-box color="yellow" scale="0.1 0.1 0.1"></a-box>
+    <FretboardBasis />
   </a-entity>
   <a-entity meta-touch-controls="hand: right; model: true" thumbstick-logging>
     <a-box color="red" scale="0.1 0.1 0.1"></a-box>
@@ -116,7 +116,4 @@
     }}
     position="0 1.6 -0.2"
   />
-  <a-entity position="-0.25 1.5 -0.6">
-    <FretboardBasis />
-  </a-entity>
 </a-scene>

@@ -27,21 +27,26 @@
 </script>
 
 <a-entity {position}>
-  <Button {label} onClick={reset} position="{width / 2} 0 0" {width} />
+  <Button {label} onClick={reset} {width} />
   <Button
     label="-"
     onClick={decrease}
-    position="{width + 0.01} 0 0"
+    position="{width + 0.005} 0 0"
     width={0.01}
   />
   <Button
     label="+"
     onClick={increase}
-    position="{width + 0.0225} 0 0"
+    position="{width + 0.0175} 0 0"
     width={0.01}
   />
   {#if showValue}
-    <a-plane color="#333" width="0.015" {height} position="{width + 0.04} 0 0">
+    <a-plane
+      color="#333"
+      width="0.015"
+      {height}
+      position="{width + 0.0375} 0 0"
+    >
       <a-text
         value={formatValue(value)}
         color="white"

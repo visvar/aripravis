@@ -107,6 +107,7 @@
   xrweb="mode: immersive-ar;"
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+  raycaster="objects: [data-raycastable]; far:1;"
 >
   <!-- camera -->
   <a-camera wasd-controls="acceleration:10; fly: true">

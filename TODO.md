@@ -16,6 +16,7 @@
 ## Urgent
 
 - [ ] fix performance
+  - [x] use plane, circle instead of cylinder and reduce cylinder triangles
   - https://github.com/aframevr/aframe/blob/master/docs/introduction/best-practices.md
   - https://aframe.io/docs/1.6.0/components/renderer.html#multiviewstereo
   - webworkers? https://infinitejs.com/posts/aframe-vr-dev-performance-issues/
@@ -26,7 +27,7 @@
 - [ ] settings
   - [x] buttons
   - [x] toggle button
-  - [ ] make work with touch on phone
+  - [x] make work with touch on phone
   - [ ] make work with hand tracking
   - [ ] allow to change view (heatmap, barchart, ..., off)
   - [x] allow to change timeline (paino roll, guitar tab, off)

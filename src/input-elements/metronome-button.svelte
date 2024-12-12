@@ -49,12 +49,7 @@
 </script>
 
 <a-entity {position}>
-  <Button
-    onClick={toggle}
-    label="metronome"
-    {width}
-    position="{width / 2} 0 0"
-  />
+  <Button onClick={toggle} label="metronome" {width} />
   <NumberInput
     label="tempo"
     bind:value={tempo}

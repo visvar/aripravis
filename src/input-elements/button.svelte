@@ -47,6 +47,7 @@
     color="#333"
     {width}
     {height}
+    position="{width / 2} 0 0"
     animation__down="property: position; from: 0 0 0; to: 0 0 0.0025; dur: 200; startEvents: mousedown, touchstart;"
     animation__enter="property: color; from: #333; to: #888; dur: 200; startEvents: mouseenter;"
     animation__out="property: color; from: #888; to: #333; dur: 200; startEvents: mouseleave;"

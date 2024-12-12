@@ -1,15 +1,13 @@
 <script>
   import { onDestroy } from 'svelte';
-  import FretboardHeatmap from './apps/fretboard-heatmap.svelte';
-  import FretboardSpacetimeCube from './apps/fretboard-spacetime-cube.svelte';
   import HandsTest from './apps/hands-test.svelte';
-  import FretboardBarChart from './apps/fretboard-bar-chart.svelte';
   import TimelineTest from './apps/timeline-test.svelte';
   import ControllerTest from './apps/controller-test.svelte';
   import PcKeyboardInput from './input-handlers/pc-keyboard-input.svelte';
   import PianoHeatmap from './apps/piano-heatmap.svelte';
   import { version } from '../package.json';
   import VibrateTest from './apps/vibrate-test.svelte';
+  import Guitar from './apps/guitar.svelte';
 
   const pw = 'ari';
   let spw = localStorage.getItem('pw') ?? '';
@@ -44,27 +42,9 @@
 
   const apps = [
     {
-      id: 'fretboard-spacetime-cube',
-      title: 'Fretboard Spacetime Cube',
-      // description: 'See how you play across different fretboard positions over time (in 3D)',
-      // input: 'MIDI',
-      // instruments: ['guitar/bass'],
-      // data: ['onset/time', 'instrument'],
-      // skills: ['instrument-layout'],
-      // patterns: ['spacetime cube', 'instrument layout', 'time is linear', 'time encoded linearly', 'update on note'],
-      // timeScale: ['a few bars'],
-      // difficulty: ['intermediate', 'advanced'],
-      component: FretboardSpacetimeCube,
-    },
-    {
-      id: 'fretboard-heatmap',
-      title: 'Fretboard Heatmap',
-      component: FretboardHeatmap,
-    },
-    {
-      id: 'fretboard-bar-chart',
-      title: 'Fretboard Bar Chart',
-      component: FretboardBarChart,
+      id: 'guitar',
+      title: 'Guitar',
+      component: Guitar,
     },
     {
       id: 'piano-heatmpa',
