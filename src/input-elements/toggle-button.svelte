@@ -30,6 +30,7 @@
     sound="src: url(mouse-click.mp3); on: click touchstart; poolSize: 30;"
     onclick={toggle}
     ontouchstart={toggle}
+    data-raycastable
   >
     <!-- label -->
     <a-text

@@ -18,6 +18,7 @@
 - [ ] fix performance
   - https://github.com/aframevr/aframe/blob/master/docs/introduction/best-practices.md
   - https://aframe.io/docs/1.6.0/components/renderer.html#multiviewstereo
+  - webworkers? https://infinitejs.com/posts/aframe-vr-dev-performance-issues/
 
 
 - [ ] hand tracking
@@ -78,6 +79,7 @@
 
 ## Later
 
+- [ ] help texts that tell user what to do and how
 - [ ] show chords
   - [ ] color per chord
   - [ ] put them into bbox?

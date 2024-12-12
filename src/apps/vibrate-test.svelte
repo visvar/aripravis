@@ -1,7 +1,7 @@
 <script>
   import 'aframe';
   import 'aframe-svelte';
-  import Button from '../components/button.svelte';
+  import Button from '../input-elements/button.svelte';
 </script>
 
 <a-scene

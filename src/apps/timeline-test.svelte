@@ -4,12 +4,12 @@
   import 'aframe';
   import 'aframe-svelte';
   import { Midi } from 'musicvis-lib';
-  import MidiInput from '../components/midi-input.svelte';
+  import MidiInput from '../input-handlers/midi-input.svelte';
   import PianoRoll from '../components/piano-roll.svelte';
-  import PcKeyboardInput from '../components/pc-keyboard-input.svelte';
+  import PcKeyboardInput from '../input-handlers/pc-keyboard-input.svelte';
   import GuitarTab from '../components/guitar-tab.svelte';
   import 'aframe-fps-counter-component';
-  import Button from '../components/button.svelte';
+  import Button from '../input-elements/button.svelte';
 
   export const minPitch = 21;
   export const maxPitch = 108;
@@ -129,6 +129,7 @@
 />
 <!-- <a-scene> -->
 <a-scene
+  stats
   xrweb="mode: immersive-ar;"
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"

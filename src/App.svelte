@@ -6,7 +6,7 @@
   import FretboardBarChart from './apps/fretboard-bar-chart.svelte';
   import TimelineTest from './apps/timeline-test.svelte';
   import ControllerTest from './apps/controller-test.svelte';
-  import PcKeyboardInput from './components/pc-keyboard-input.svelte';
+  import PcKeyboardInput from './input-handlers/pc-keyboard-input.svelte';
   import PianoHeatmap from './apps/piano-heatmap.svelte';
   import { version } from '../package.json';
   import VibrateTest from './apps/vibrate-test.svelte';

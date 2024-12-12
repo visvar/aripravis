@@ -5,15 +5,16 @@
   import 'aframe';
   import 'aframe-svelte';
   import { Midi } from 'musicvis-lib';
-  import MidiInput from '../components/midi-input.svelte';
+  import MidiInput from '../input-handlers/midi-input.svelte';
   import { fretPositionsMeter } from '../lib/guitar-fret-spacing';
   import ColorSwatches from '../components/color-swatches.svelte';
-  import PcKeyboardInput from '../components/pc-keyboard-input.svelte';
-  import Button from '../components/button.svelte';
-  import NumberInput from '../components/number-input.svelte';
-  import ScaleSelect from '../components/scale-select.svelte';
+  import PcKeyboardInput from '../input-handlers/pc-keyboard-input.svelte';
+  import Button from '../input-elements/button.svelte';
+  import NumberInput from '../input-elements/number-input.svelte';
+  import ScaleSelect from '../input-elements/scale-select.svelte';
   import { NOTE_TO_CHROMA_MAP } from '../lib/music.js';
-  import MetronomeButton from '../components/metronome-button.svelte';
+  import MetronomeButton from '../input-elements/metronome-button.svelte';
+  import FretboardBasis from '../components/fretboard-basis.svelte';
 
   export let currentApp;
   let stringCount = 6;
@@ -133,6 +134,7 @@
 />
 
 <a-scene
+  stats
   xrweb="mode: immersive-ar;"
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
@@ -191,16 +193,6 @@
       }}
       position="0.105 0.01 0"
     />
-    <!-- <NumberInput
-      label="tempo"
-      bind:value={tempo}
-      defaultValue={120}
-      min={60}
-      max={200}
-      step={5}
-      position="0.07 0.03 0"
-      showValue
-      /> -->
     <MetronomeButton bind:tempo position="0.07 0.03 0" />
     <NumberInput
       label="bar size"
@@ -213,89 +205,7 @@
     />
     <ScaleSelect bind:root bind:scale position="0.07 0.07 0" />
     <!-- fretboard -->
-    {#each d3.range(stringCount) as string}
-      <!-- strings -->
-      <a-cylinder
-        position={`
-            ${fretPositionsMeter.at(-1) / 2}
-            0
-            ${stringPositions[string]}`}
-        radius={0.0002 * (string / 6 + 1)}
-        height={fretPositionsMeter.at(-1)}
-        rotation="0 0 90"
-        color={stringColors[stringCount - string - 1]}
-      ></a-cylinder>
-      <!-- string notes -->
-      <a-entity
-        text="value: {tuningNotes[string].slice(0, -1)}; color: #666"
-        position={`
-            0.04
-            0
-            ${stringPositions[string]}`}
-        scale="0.1 0.1 0.1"
-        rotation="-45 0 0"
-        material="side: double"
-      ></a-entity>
-    {/each}
-    {#each d3.range(fretCount + 1) as fret}
-      <!-- frets -->
-      <a-cylinder
-        position={`
-          ${fretPositionsMeter[fret]}
-          0
-          ${stringPositions.at(-1) / 2}`}
-        radius={0.00025}
-        height={stringPositions.at(-1)}
-        rotation="90 0 0"
-        color="#ddd"
-      ></a-cylinder>
-    {/each}
-    <!-- fret numbers -->
-    {#each [0, 1, 3, 5, 7, 9, 12, 15, 17, 19, 21, 24] as fret}
-      <a-text
-        value={fret}
-        color="#666"
-        position={`
-            ${fretPositionsMeter[fret]}
-            0
-            ${stringPositions.at(-1) + 0.005}`}
-        scale="0.02 0.02 0.02"
-        rotation="-45 0 0"
-        material="side: double"
-        align="center"
-        anchor="center"
-        baseline="top"
-      ></a-text>
-    {/each}
-    <!-- inlays -->
-    {#each [3, 5, 7, 9, 15, 17, 19, 21] as dot}
-      <a-sphere
-        position={`
-          ${(fretPositionsMeter[dot] + fretPositionsMeter[dot - 1]) / 2}
-          0
-          ${stringPositions.at(-1) / 2}`}
-        color="silver"
-        scale="0.002 0.0005 0.002"
-      ></a-sphere>
-    {/each}
-    {#each [12, 24] as dot}
-      <a-sphere
-        position={`
-          ${(fretPositionsMeter[dot] + fretPositionsMeter[dot - 1]) / 2}
-           0
-          ${(stringPositions.at(1) + stringPositions.at(2)) / 2}`}
-        color="silver"
-        scale="0.002 0.0005 0.002"
-      ></a-sphere>
-      <a-sphere
-        position={`
-          ${(fretPositionsMeter[dot] + fretPositionsMeter[dot - 1]) / 2}
-           0
-          ${(stringPositions.at(3) + stringPositions.at(4)) / 2}`}
-        color="silver"
-        scale="0.002 0.0005 0.002"
-      ></a-sphere>
-    {/each}
+    <FretboardBasis />
     <!-- notes -->
     {#each binnedNotes as [stringPos, stringNotes]}
       {#each stringNotes as [fretPos, notes]}
@@ -313,6 +223,8 @@
           )}
           radius="0.002"
           height={heightMap(notes.length)}
+          segments-height="1"
+          segments-radial="6"
         ></a-cylinder>
       {/each}
     {/each}

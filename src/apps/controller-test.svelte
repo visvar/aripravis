@@ -3,7 +3,8 @@
   import 'aframe';
   import 'aframe-svelte';
   import * as AFRAME from 'aframe';
-  import Button from '../components/button.svelte';
+  import Button from '../input-elements/button.svelte';
+  import FretboardBasis from '../components/fretboard-basis.svelte';
 
   export let currentApp;
 
@@ -59,22 +60,33 @@
       },
       aButtonDown: function (evt) {
         console.log(evt);
-        debugMsg = `a button`;
+        debugMsg = `a button ${this.el.position}`;
+        navigator.vibrate(200);
       },
       bButtonDown: function (evt) {
         debugMsg = `b button`;
+        navigator.vibrate(200);
       },
       xButtonDown: function (evt) {
         debugMsg = `x button`;
+        navigator.vibrate(200);
       },
       yButtonDown: function (evt) {
         debugMsg = `y button`;
+        navigator.vibrate(200);
       },
+    });
+  });
+
+  onMount(() => {
+    window.setTimeout(() => {
+      debugMsg = 'message';
     });
   });
 </script>
 
 <a-scene
+  stats
   xrweb="mode: immersive-ar;"
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
@@ -104,4 +116,7 @@
     }}
     position="0 1.6 -0.2"
   />
+  <a-entity position="-0.25 1.5 -0.6">
+    <FretboardBasis />
+  </a-entity>
 </a-scene>

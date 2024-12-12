@@ -13,6 +13,7 @@
   export let width = 0.02;
   export let height = 0.01;
   export let showValue = false;
+  export let formatValue = (d) => d;
 
   const increase = () => {
     value = Math.min(max, value + step);
@@ -42,7 +43,7 @@
   {#if showValue}
     <a-plane color="#333" width="0.015" {height} position="{width + 0.04} 0 0">
       <a-text
-        {value}
+        value={formatValue(value)}
         color="white"
         width="5"
         position="0 0 0.001"

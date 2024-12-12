@@ -1,13 +1,12 @@
 <script>
   import { onDestroy } from 'svelte';
   import * as d3 from 'd3';
-  import { Note } from 'tonal';
   import 'aframe';
   import 'aframe-svelte';
   import { Midi } from 'musicvis-lib';
-  import MidiInput from '../components/midi-input.svelte';
+  import MidiInput from '../input-handlers/midi-input.svelte';
   import ColorLegend from '../components/color-legend.svelte';
-  import ToggleButton from '../components/toggle-button.svelte';
+  import ToggleButton from '../input-elements/toggle-button.svelte';
 
   export const minPitch = 21;
   export const maxPitch = 108;
@@ -104,6 +103,7 @@
 </script>
 
 <a-scene
+  stats
   xrweb="mode: immersive-ar;"
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
@@ -151,12 +151,11 @@
       position="0 0 {-whiteKeyZScale}"
     />
     <!-- keyboard -->
-    {#each keys as k}
+    {#each keys as k (k.number)}
       <a-box
         position="{k.x} {k.y} {k.z}"
         scale="{k.xScale} {k.yScale} {k.zScale}"
         color={colorMap(binnedNotes.get(k.number)?.length ?? 0)}
-        opacity="0.5"
       >
       </a-box>
       {#if showNoteLabels && !k.isBlack}
