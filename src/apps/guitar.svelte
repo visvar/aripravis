@@ -32,6 +32,7 @@
   let timelines = ['none', 'tab', 'pianoroll'];
   let timeline = 'none';
   let showBasis = true;
+  let showBackground = false;
 
   const width = 2048;
   const height = 512;
@@ -52,7 +53,7 @@
     const seconds = (time - firstTimeStamp) / 1000;
     const string = Math.floor(Math.random() * 6);
     const fret = Math.round(Math.random() * 24);
-    const velocity = Math.round(Math.random() * 127);
+    const velocity = Math.random();
     const midiNr = tuningPitches[string] + fret;
     time = time ?? Math.round(Math.random() * 60);
     return {
@@ -90,7 +91,7 @@
       time,
       number: e.note.number,
       note: Midi.NOTE_NAMES[e.note.number % 12],
-      velocity: e.rawVelocity,
+      velocity: e.velocity,
       channel: e.message.channel,
       string,
       fret,
@@ -149,6 +150,10 @@
     <canvas id="pianoroll-canvas" {width} {height}></canvas>
     <canvas id="guitartab-canvas" {width} {height}></canvas>
   </a-assets>
+  <!-- sky -->
+  {#if showBackground}
+    <a-sky color="#fff"></a-sky>
+  {/if}
   <!-- camera -->
   <a-camera wasd-controls="acceleration:10; fly: true">
     <a-cursor position="0 0 -0.1" scale="0.1 0.1 0.1"></a-cursor>
@@ -179,6 +184,12 @@
         label="show basis"
         bind:checked={showBasis}
         position="0 -0.04 0"
+      />
+      <ToggleButton
+        label="show background"
+        bind:checked={showBackground}
+        position="0.05 -0.04 0"
+        width={0.05}
       />
       <Button
         label="reset"

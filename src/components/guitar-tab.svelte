@@ -9,7 +9,7 @@
   export let position = '0 0 0';
   export let filteredNotes = [];
   export let stringCount = 6;
-  export let colorMap = (note) => 'white';
+  export let colorMap = (note) => d3.interpolateSpectral((note.fret % 12) / 12);
   export let canvasId = '#guitartab-canvas';
 
   /**
@@ -63,7 +63,6 @@
       this.canvas = document.querySelector(canvasId);
       this.ctx = this.canvas.getContext('2d');
       this.ctx.font = `bold ${fontSize}px sans-serif`;
-      this.ctx.textAlign = 'center';
       this.ctx.textBaseline = 'middle';
     },
 
@@ -77,6 +76,7 @@
       this.ctx.fillStyle = '#333';
       this.ctx.fillRect(0, 0, width, height);
 
+      this.ctx.textAlign = 'center';
       // y axis
       for (let string = 0; string < stringCount; string++) {
         const y = scaleString(string) + stringCenterOffset;
@@ -100,8 +100,9 @@
       }
 
       // notes
+      this.ctx.textAlign = 'left';
       for (const note of notes) {
-        this.ctx.fillStyle = 'white';
+        this.ctx.fillStyle = colorMap(note);
         const y = scaleString(note.string);
         this.ctx.fillRect(
           scaleTime(note.time),

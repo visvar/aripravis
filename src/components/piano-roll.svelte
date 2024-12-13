@@ -7,7 +7,8 @@
   export let notes = [];
   export let position = '0 0 0';
   export let canvasId = '#pianoroll-canvas';
-  export let colorMap = (note) => 'white';
+  export let colorMap = (note) =>
+    d3.interpolateRainbow((note.number % 12) / 12);
 
   /**
    * should be power of two
@@ -93,8 +94,8 @@
       }
 
       // notes
-      this.ctx.fillStyle = 'white';
       for (const note of notes) {
+        this.ctx.fillStyle = colorMap(note);
         this.ctx.fillRect(
           scaleTime(note.time),
           scalePitch(note.number),

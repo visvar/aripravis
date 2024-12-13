@@ -31,14 +31,14 @@
         this.el.addEventListener('abuttondown', this.aButtonDown);
         this.el.addEventListener('bbuttondown', this.bButtonDown);
         this.el.addEventListener('xbuttondown', this.xButtonDown);
-        this.el.addEventListener('xbuttondown', this.yButtonDown);
+        this.el.addEventListener('ybuttondown', this.yButtonDown);
       },
       remove: function () {
         this.el.removeEventListener('thumbstickmoved', this.thumbstickMoved);
         this.el.removeEventListener('abuttondown', this.aButtonDown);
         this.el.removeEventListener('bbuttondown', this.bButtonDown);
         this.el.removeEventListener('xbuttondown', this.xButtonDown);
-        this.el.removeEventListener('xbuttondown', this.yButtonDown);
+        this.el.removeEventListener('ybuttondown', this.yButtonDown);
       },
       multiple: true,
       // functions
