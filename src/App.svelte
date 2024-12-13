@@ -8,6 +8,7 @@
   import { version } from '../package.json';
   import VibrateTest from './apps/vibrate-test.svelte';
   import Guitar from './apps/guitar.svelte';
+  import TestCanvas from './tests/test-canvas2.svelte';
 
   const pw = 'ari';
   let spw = localStorage.getItem('pw') ?? '';
@@ -42,34 +43,24 @@
 
   const apps = [
     {
-      id: 'guitar',
       title: 'Guitar',
       component: Guitar,
     },
     {
-      id: 'piano-heatmpa',
       title: 'Piano Heatmap',
       component: PianoHeatmap,
     },
     {
-      id: 'timeline-test',
       title: 'Timeline Test',
       component: TimelineTest,
     },
     {
-      id: 'hands-test',
       title: 'Hands Test',
       component: HandsTest,
     },
     {
-      id: 'controller-test',
       title: 'Controller Test',
       component: ControllerTest,
-    },
-    {
-      id: 'vibrate-test',
-      title: 'Vibrate Test',
-      component: VibrateTest,
     },
   ];
 
@@ -93,7 +84,7 @@
   {:else if !currentApp}
     <h1>ARIPraVis</h1>
 
-    {#each apps as app (app.id)}
+    {#each apps as app}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div class="card" on:click={() => (currentApp = app)}>

@@ -81,7 +81,7 @@
   onMount(() => {
     window.setTimeout(() => {
       debugMsg = 'message';
-    });
+    }, 3000);
   });
 </script>
 

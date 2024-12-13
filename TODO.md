@@ -19,7 +19,7 @@
   - [x] use plane, circle instead of cylinder and reduce cylinder triangles
   - [ ] turn off antialiasing
   - https://github.com/aframevr/aframe/blob/master/docs/introduction/best-practices.md
-  - https://aframe.io/docs/1.6.0/components/renderer.html#multiviewstereo
+  - [x] https://aframe.io/docs/1.6.0/components/renderer.html#multiviewstereo
   - webworkers? https://infinitejs.com/posts/aframe-vr-dev-performance-issues/
 
 
@@ -57,14 +57,14 @@
 - [ ] timeline
   - [x] piano roll
   - [x] tab
-  - [ ] performance improvement with https://github.com/mayognaise/aframe-draw-shader
+  - [x] performance improvement with canvas texture https://github.com/stemkoski/A-Frame-Examples/blob/master/canvas-texture.html
 - [ ] midi streaming from PC to HMD via websockets
   - see https://github.com/fheyen/synced-guitar-tabs
   - [x] server takes midi input
   - [x] server pushes midi messages
   - [x] client connects to server
   - [x] test server with random midi
-  - [ ] test with phone and HMD
+  - [ ] test with HMD
 
 ## Next
 
@@ -114,9 +114,6 @@
   - draw texture like an HTML canvas https://github.com/mayognaise/aframe-draw-shader
 - world and object coordinates
   - https://aframe.io/docs/1.6.0/introduction/developing-with-threejs.html
-- passthrough
-  - according to this you have to do nothing https://timmykokke.com/blog/2023/2023-02-03-webxr-pass-through/
-  - https://stackoverflow.com/questions/79068376/what-happened-to-ar-mode-in-aframe
 - hand tracking and buttons
   - https://glitch.com/edit/#!/aframe-hand-tracking?path=button.js%3A9%3A21
   - demo https://aframe-gesture-recognition.glitch.me/

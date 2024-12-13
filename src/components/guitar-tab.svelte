@@ -1,102 +1,145 @@
 <script>
-    import * as d3 from 'd3';
-    import { Note } from 'tonal';
+  import * as AFRAME from 'aframe';
+  import * as d3 from 'd3';
+  import { Midi } from 'musicvis-lib';
+  import { onMount } from 'svelte';
+  import { Note } from 'tonal';
 
-    export let notes = [];
-    export let filteredNotes = [];
-    export let position = '0 0 0';
-    export let width = 0.5;
-    export let height = 0.06;
-    export let stringCount = 6;
+  export let notes = [];
+  export let position = '0 0 0';
+  export let filteredNotes = [];
+  export let stringCount = 6;
+  export let colorMap = (note) => 'white';
+  export let canvasId = '#guitartab-canvas';
 
-    export let colorMap = (note) => 'white';
+  /**
+   * should be power of two
+   */
+  const width = 2048;
+  /**
+   * should be power of two
+   */
+  const height = 512;
+  const marginLeft = 50;
+  const marginTop = 10;
+  const marginBottom = 50;
+  const fontSize = 20;
 
-    // E standard tuning, strings start at high E
-    let tuningPitches = [64, 59, 55, 50, 45, 40];
-    const tuningNotes = tuningPitches.map(Note.fromMidiSharps);
-    // const stringColors = tuningNotes.map(()=>'#aaa')
-    const stringColors = d3.schemeObservable10;
+  // E standard tuning, strings start at high E
+  let tuningPitches = [64, 59, 55, 50, 45, 40];
+  const tuningNotes = tuningPitches.map(Note.fromMidiSharps);
+  // const stringColors = tuningNotes.map(()=>'#aaa')
+  const stringColors = d3.schemeObservable10;
 
-    $: timeMin = d3.min(notes, (d) => d.time);
-    $: timeMax = d3.max(notes, (d) => d.time + d.duration);
-    $: scaleTime = d3
-        .scaleLinear()
-        .domain([timeMin, timeMax])
-        .range([0, width]);
-    $: scaleString = d3
-        .scaleLinear()
-        .domain([stringCount - 1, 0])
-        .range([0, height]);
-    $: noteHeight = 0.9 * Math.abs(scaleString(1) - scaleString(2));
+  $: timeMin = d3.min(notes, (d) => d.time);
+  $: timeMax = d3.max(notes, (d) => d.time + d.duration);
+  $: scaleTime = d3
+    .scaleLinear()
+    .domain([timeMin, timeMax])
+    .range([marginLeft, width]);
+  $: scaleString = d3
+    .scaleLinear()
+    .domain([stringCount, 0])
+    .range([height - marginBottom, marginTop]);
+  $: lineHeight = Math.abs(scaleString(1) - scaleString(2));
+  $: noteHeight = 0.9 * lineHeight;
+  $: stringHeight = 0.2 * lineHeight;
+  $: stringCenterOffset = 0.5 * lineHeight;
+
+  // only update when notes changes
+  let needsUpdate = false;
+  $: {
+    notes;
+    needsUpdate = true;
+  }
+
+  if (AFRAME.components['draw-guitartab']) {
+    AFRAME.components['draw-guitartab'] = undefined;
+  }
+  AFRAME.registerComponent('draw-guitartab', {
+    // dependencies: ['geometry', 'material'],
+    init: function () {
+      // this.canvas = document.querySelector(canvasId);
+      this.canvas = document.querySelector(canvasId);
+      this.ctx = this.canvas.getContext('2d');
+      this.ctx.font = `bold ${fontSize}px sans-serif`;
+      this.ctx.textAlign = 'center';
+      this.ctx.textBaseline = 'middle';
+    },
+
+    tick: function (t) {
+      // only do something when notes have changed
+      if (!needsUpdate) {
+        return;
+      }
+      needsUpdate = false;
+      // clear canvas
+      this.ctx.fillStyle = '#333';
+      this.ctx.fillRect(0, 0, width, height);
+
+      // y axis
+      for (let string = 0; string < stringCount; string++) {
+        const y = scaleString(string) + stringCenterOffset;
+        // string note
+        this.ctx.fillStyle = '#aaa';
+        this.ctx.fillText(tuningNotes[string], marginLeft / 2, y);
+        // string
+        this.ctx.fillStyle = stringColors[string];
+        this.ctx.fillRect(
+          marginLeft,
+          y - stringHeight / 2,
+          width,
+          stringHeight,
+        );
+      }
+
+      this.ctx.fillStyle = '#aaa';
+      // X axis
+      for (const tick of d3.ticks(timeMin, timeMax, 10)) {
+        this.ctx.fillText(tick, scaleTime(tick), height - marginBottom / 2);
+      }
+
+      // notes
+      for (const note of notes) {
+        this.ctx.fillStyle = 'white';
+        const y = scaleString(note.string);
+        this.ctx.fillRect(
+          scaleTime(note.time),
+          y,
+          scaleTime(note.duration),
+          noteHeight,
+        );
+        // fret numbers
+        this.ctx.fillStyle = '#666';
+        this.ctx.fillText(
+          note.fret,
+          scaleTime(note.time),
+          y + stringCenterOffset,
+        );
+      }
+
+      // thanks to https://github.com/aframevr/aframe/issues/3936 for the update fix
+      let material = this.el.getObject3D('mesh').material;
+      if (!material.map) return;
+      else material.map.needsUpdate = true;
+    },
+  });
+
+  // workaorund to make it work...
+  let show = false;
+  onMount(() => {
+    show = true;
+  });
 </script>
 
-<a-entity {position}>
-    <!-- background -->
-    <a-plane
-        {width}
-        {height}
-        color="#333"
-        opacity="0.5"
-        position="{width / 2} {height / 2} 0"
-    >
-    </a-plane>
-    <!-- string background stripes -->
-    {#each d3.range(stringCount) as string}
-        <a-plane
-            position="{width / 2} {scaleString(string)} 0.001"
-            {width}
-            height={noteHeight / 8}
-            color={stringColors[string]}
-        >
-        </a-plane>
-    {/each}
-    <!-- notes -->
-    {#each notes as note (note.time)}
-        <a-plane
-            position="{scaleTime(note.time + note.duration / 2)} {scaleString(
-                note.string,
-            )} 0.004"
-            width={scaleTime(note.duration)}
-            height={noteHeight}
-            color={colorMap(note)}
-        >
-        </a-plane>
-        <a-text
-            position="{scaleTime(note.time + note.duration / 2)} {scaleString(
-                note.string,
-            )} 0.004"
-            width={5}
-            value={note.fret}
-            color="#333"
-            scale=".015 .015 .015"
-            align="center"
-            anchor="center"
-        >
-        </a-text>
-    {/each}
-    <!--  Y axis -->
-    {#each d3.range(stringCount) as string}
-        <a-text
-            value={tuningNotes[string]}
-            color="#aaa"
-            width="5"
-            position="-0.005 {scaleString(string)} 0"
-            scale=".015 .015 .015"
-            align="right"
-            anchor="right"
-        ></a-text>
-    {/each}
-    <!--  X axis -->
-    {#each d3.ticks(timeMin, timeMax, 10) as tick}
-        <a-text
-            value={tick}
-            color="#aaa"
-            width="5"
-            position="{scaleTime(tick)} -0.005 0"
-            scale=".015 .015 .015"
-            align="center"
-            anchor="center"
-            baseline="top"
-        ></a-text>
-    {/each}
-</a-entity>
+{#if show}
+  <a-plane
+    id="canvas-display"
+    width="0.5"
+    height="0.125"
+    material="shader: flat; src: {canvasId};"
+    draw-guitartab
+    {position}
+  >
+  </a-plane>
+{/if}

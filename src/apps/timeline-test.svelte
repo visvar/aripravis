@@ -3,13 +3,14 @@
   import * as d3 from 'd3';
   import 'aframe';
   import 'aframe-svelte';
+  import 'aframe-draw-shader';
+  import 'aframe-fps-counter-component';
   import { Midi } from 'musicvis-lib';
   import MidiInput from '../input-handlers/midi-input.svelte';
-  import PianoRoll from '../components/piano-roll.svelte';
   import PcKeyboardInput from '../input-handlers/pc-keyboard-input.svelte';
   import GuitarTab from '../components/guitar-tab.svelte';
-  import 'aframe-fps-counter-component';
   import Button from '../input-elements/button.svelte';
+  import PianoRoll from '../components/piano-roll.svelte';
 
   export const minPitch = 21;
   export const maxPitch = 108;
@@ -17,7 +18,7 @@
   // E standard tuning, strings start at high E
   let tuningPitches = [64, 59, 55, 50, 45, 40];
   let fretCount = 24;
-  let firstTimeStamp = 0;
+  let firstTimeStamp = performance.now();
   /**
    * @type {object[]}
    */
@@ -28,18 +29,21 @@
   let showPianoRoll = true;
   let showGuitarTab = true;
 
+  const width = 2048;
+  const height = 512;
+
   // create random data until MIDI input is received
   const randomNote = (time) => {
     if (notes.length === 0) {
-      firstTimeStamp = performance.now();
+      firstTimeStamp = time;
     }
+    const seconds = (time - firstTimeStamp) / 1000;
     const velocity = Math.round(Math.random() * 127);
     const number = Math.round(Math.random() * (maxPitch - minPitch) + minPitch);
     const string = Math.floor(Math.random() * 6);
     const fret = Math.round(Math.random() * 24);
-    time = time ?? Math.round(Math.random() * 60);
     return {
-      time,
+      time: seconds,
       number,
       note: Midi.NOTE_NAMES[number % 12],
       velocity,
@@ -49,31 +53,25 @@
     };
   };
   let testInterval = setInterval(
-    () =>
-      (notes = [
-        ...notes,
-        randomNote((performance.now() - firstTimeStamp) / 1000),
-      ]),
-    100,
+    () => (notes = [...notes, randomNote(performance.now())]),
+    500,
   );
 
   const noteOn = (e) => {
     if (testInterval) {
       clearInterval(testInterval);
-      testInterval = null;
       notes = [];
     }
     if (notes.length === 0) {
       firstTimeStamp = e.timestamp;
     }
     const time = (e.timestamp - firstTimeStamp) / 1000;
-    // const string = e.message.channel - 1;
-    const string = Math.round(Math.random() * 5);
+    const string = e.message.channel - 1;
     const fret = e.note.number - tuningPitches[string];
     // // filter noise
-    // if (fret < 0 || fret > fretCount) {
-    //     return;
-    // }
+    if (fret < 0 || fret > fretCount) {
+      return;
+    }
     const note = {
       time,
       number: e.note.number,
@@ -118,6 +116,7 @@
 
   onDestroy(() => {
     clearInterval(testInterval);
+    notes = [];
   });
 </script>
 
@@ -127,13 +126,19 @@
     notes = [];
   }}
 />
-<!-- <a-scene> -->
+
+<MidiInput {noteOn} {noteOff} />
+
 <a-scene
   stats
   xrweb="mode: immersive-ar;"
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
-  renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+  renderer="colorManagement: true; antialias: false; foveationLevel: 1; highRefreshRate: true;"
 >
+  <a-assets>
+    <canvas id="pianoroll-canvas" {width} {height}></canvas>
+    <canvas id="guitartab-canvas" {width} {height}></canvas>
+  </a-assets>
   <!-- camera -->
   <a-entity
     camera
@@ -143,9 +148,10 @@
   >
     <a-cursor position="0 0 -0.1" scale="0.1 0.1 0.1"></a-cursor>
   </a-entity>
-  <!-- FPS -->
   <a-entity position="0.07 1.62 -0.25">
-    <a-entity fps-counter scale="0.1 0.1 0.1"></a-entity>
+    <!-- FPS -->
+    <a-entity fps-counter scale="0.1 0.1 0.1" position="0.06 0.007 0"
+    ></a-entity>
     <a-text
       value="{notes.length} notes"
       scale="0.02 0.02 0.02"
@@ -167,27 +173,19 @@
       position="0.03 0.007 0"
     />
   </a-entity>
-  {#if showPianoRoll}
-    <a-box
-      position="-0.1 1.5 -0.25"
-      rotation="0 0 0"
-      scale="1 1 1"
-      visible="true"
-      opacity="0"
-    >
-      <PianoRoll {notes} />
-    </a-box>
-  {/if}
-  {#if showGuitarTab}
-    <a-box
-      position="-0.1 1.65 -0.25"
-      rotation="0 0 0"
-      scale="1 1 1"
-      visible="true"
-      opacity="0"
-    >
+  <a-box
+    position="-0.1 1.5 -0.25"
+    rotation="0 0 0"
+    scale="1 1 1"
+    visible="true"
+    opacity="0"
+  >
+    {#if showPianoRoll}
+      <!-- <PianoRoll {notes} position="0 0.2 0" /> -->
+      <PianoRoll {notes} position="0 0.2 0" />
+    {/if}
+    {#if showGuitarTab}
       <GuitarTab {notes} />
-    </a-box>
-  {/if}
-  <MidiInput {noteOn} {noteOff} />
+    {/if}
+  </a-box>
 </a-scene>

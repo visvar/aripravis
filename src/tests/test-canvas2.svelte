@@ -1,26 +1,53 @@
 <script>
   import * as AFRAME from 'aframe';
+  import 'aframe-svelte';
   import { Midi } from 'musicvis-lib';
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
 
-  export let notes = [];
-  export let position = '0 0 0';
-  export let canvasId = '#pianoroll-canvas';
-  export let colorMap = (note) => 'white';
+  export let minPitch = 21;
+  export let maxPitch = 108;
 
-  /**
-   * should be power of two
-   */
-  const width = 2048;
-  /**
-   * should be power of two
-   */
-  const height = 512;
+  const width = 4096;
+  const height = 1024;
   const marginLeft = 50;
   const marginTop = 10;
   const marginBottom = 50;
   const fontSize = 20;
+
+  let firstTimeStamp = 0;
+
+  let notes = [];
+  // create random data until MIDI input is received
+  const randomNote = (time) => {
+    if (notes.length === 0) {
+      firstTimeStamp = performance.now();
+    }
+    const velocity = Math.round(Math.random() * 127);
+    const number = Math.round(Math.random() * (maxPitch - minPitch) + minPitch);
+    const string = Math.floor(Math.random() * 6);
+    const fret = Math.round(Math.random() * 24);
+    // time = time ?? Math.round(Math.random() * 60);
+    return {
+      time,
+      number,
+      note: Midi.NOTE_NAMES[number % 12],
+      velocity,
+      duration: Math.random() + 0.01,
+      string,
+      fret,
+    };
+  };
+  let testInterval = setInterval(
+    () =>
+      (notes = [
+        ...notes,
+        randomNote((performance.now() - firstTimeStamp) / 1000),
+      ]),
+    100,
+  );
+
+  export let colorMap = (note) => 'white';
 
   $: timeMin = d3.min(notes, (d) => d.time);
   $: timeMax = d3.max(notes, (d) => d.time + d.duration);
@@ -32,28 +59,24 @@
   $: scalePitch = d3
     .scaleLinear()
     .domain([pitchExtent[0] - 1, pitchExtent[1] + 1])
-    .range([height - marginBottom, marginTop]);
+    .range([marginTop, height - marginBottom]);
   $: noteHeight = 0.9 * Math.abs(scalePitch(1) - scalePitch(0));
 
-  // only update when notes changes
   let needsUpdate = false;
   $: {
     notes;
-    scaleTime;
     needsUpdate = true;
   }
 
-  if (AFRAME.components['draw-pianoroll']) {
-    AFRAME.components['draw-pianoroll'] = undefined;
+  if (AFRAME.components['draw-canvas']) {
+    AFRAME.components['draw-canvas'] = undefined;
   }
-  AFRAME.registerComponent('draw-pianoroll', {
+  AFRAME.registerComponent('draw-canvas', {
     // dependencies: ['geometry', 'material'],
     init: function () {
-      // this.canvas = document.querySelector(canvasId);
-      this.canvas = document.querySelector(canvasId);
+      this.canvas = document.querySelector('#mycanvas');
       this.ctx = this.canvas.getContext('2d');
       this.ctx.font = `bold ${fontSize}px sans-serif`;
-      this.ctx.textAlign = 'center';
       this.ctx.textBaseline = 'middle';
     },
 
@@ -67,6 +90,9 @@
       this.ctx.fillStyle = '#333';
       this.ctx.fillRect(0, 0, width, height);
 
+      // draw rectangle
+      this.ctx.fillStyle = 'white';
+
       // y axis
       this.ctx.fillStyle = '#aaa';
       for (let pitch = pitchExtent[0]; pitch <= pitchExtent[1]; pitch++) {
@@ -75,13 +101,13 @@
           // labels only for C
           this.ctx.fillText(
             `${Midi.NOTE_NAMES[pitch % 12]} ${Math.floor(pitch / 12)}`,
-            marginLeft / 2,
+            0,
             y,
           );
         }
         if (Midi.SHARPS.has(pitch % 12)) {
           // sharps background stripes
-          this.ctx.fillStyle = '#222';
+          this.ctx.fillStyle = '#444';
           this.ctx.fillRect(marginLeft, y, width, noteHeight);
           this.ctx.fillStyle = '#aaa';
         }
@@ -93,7 +119,6 @@
       }
 
       // notes
-      this.ctx.fillStyle = 'white';
       for (const note of notes) {
         this.ctx.fillRect(
           scaleTime(note.time),
@@ -117,14 +142,19 @@
   });
 </script>
 
-{#if show}
-  <a-plane
-    id="canvas-display"
-    width="0.5"
-    height="0.125"
-    material="shader: flat; src: {canvasId};"
-    draw-pianoroll
-    {position}
-  >
-  </a-plane>
-{/if}
+<a-scene stats>
+  <a-assets>
+    <canvas id="mycanvas" {width} {height}></canvas>
+  </a-assets>
+  {#if show}
+    <a-plane
+      id="canvas-display"
+      width="2"
+      height="0.5"
+      position="0 1.6 -3"
+      material="shader: flat; src: #mycanvas;"
+      draw-canvas
+    >
+    </a-plane>
+  {/if}
+</a-scene>
