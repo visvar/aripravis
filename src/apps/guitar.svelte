@@ -27,10 +27,11 @@
   let tuningPitches = [64, 59, 55, 50, 45, 40];
 
   // settings
-  let encodings = ['bars', 'heatmap', 'spacetime'];
+  let encodings = ['none', 'bars', 'heatmap', 'spacetime'];
   let encoding = 'bars';
   let timelines = ['none', 'tab', 'pianoroll'];
-  let timeline = 'none';
+  let timeline = 'tab';
+  let showMenu = true;
   let showBasis = true;
   let showBackground = false;
 
@@ -168,43 +169,46 @@
   <a-entity position="-0.1 1.5 -0.25">
     <!-- settings menu -->
     <a-entity position="-0.25 0.1 0" scale="1.5 1.5 1.5">
-      <MultiButton
-        label="encoding"
-        values={encodings}
-        bind:value={encoding}
-        position="0 0 0"
-      />
-      <MultiButton
-        label="timeline"
-        values={timelines}
-        bind:value={timeline}
-        position="0 -0.02 0"
-      />
-      <ToggleButton
-        label="show basis"
-        bind:checked={showBasis}
-        position="0 -0.04 0"
-      />
-      <ToggleButton
-        label="show background"
-        bind:checked={showBackground}
-        position="0.05 -0.04 0"
-        width={0.05}
-      />
-      <Button
-        label="reset"
-        onClick={() => {
-          notes = [];
-        }}
-        position="0 -0.06 0"
-      />
-      <Button
-        label="quit"
-        onClick={() => {
-          currentApp = null;
-        }}
-        position="0.025 -0.06 0"
-      />
+      <ToggleButton label="menu" bind:checked={showMenu} position="-0.05 0 0" />
+      {#if showMenu}
+        <MultiButton
+          label="encoding"
+          values={encodings}
+          bind:value={encoding}
+          position="0 0 0"
+        />
+        <MultiButton
+          label="timeline"
+          values={timelines}
+          bind:value={timeline}
+          position="0 -0.02 0"
+        />
+        <ToggleButton
+          label="show basis"
+          bind:checked={showBasis}
+          position="0 -0.04 0"
+        />
+        <ToggleButton
+          label="show background"
+          bind:checked={showBackground}
+          position="0.05 -0.04 0"
+          width={0.05}
+        />
+        <Button
+          label="reset"
+          onClick={() => {
+            notes = [];
+          }}
+          position="0 -0.06 0"
+        />
+        <Button
+          label="quit"
+          onClick={() => {
+            currentApp = null;
+          }}
+          position="0.025 -0.06 0"
+        />
+      {/if}
       <a-entity fps-counter scale="0.1 0.1 0.1" position="0 -0.1 0"></a-entity>
     </a-entity>
     <!-- fretboard -->

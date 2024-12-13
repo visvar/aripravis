@@ -21,6 +21,7 @@
   - https://github.com/aframevr/aframe/blob/master/docs/introduction/best-practices.md
   - [x] https://aframe.io/docs/1.6.0/components/renderer.html#multiviewstereo
   - webworkers? https://infinitejs.com/posts/aframe-vr-dev-performance-issues/
+  - [ ] test with PCVR
 
 
 - [ ] hand tracking
@@ -29,9 +30,9 @@
   - [x] buttons
   - [x] toggle button
   - [x] make work with touch on phone
-  - [ ] make work with hand tracking
-  - [ ] allow to change view (heatmap, barchart, ..., off)
+  - [x] allow to change view (heatmap, barchart, ..., off)
   - [x] allow to change timeline (paino roll, guitar tab, off)
+  - [ ] make work with hand tracking
 - [ ] attach vis to controller
   - [x] scale fretbord according to instrument
   - [x] scale keyboard according to instrument
@@ -44,7 +45,6 @@
   - [x] guitar bar chart
   - [x] guitar 3D scatterplot
   - [x] piano heatmap
-  - [ ] piano bar chart
   - [ ] piano roll on top of piano
   - [ ] ...
 - [x] scale select
@@ -52,7 +52,6 @@
   - [ ] color vis by scale degrees (e.g., 1 4 7)
 - [ ] legends
   - [x] color legend continuous
-    - [ ] d3 ticks for better look
   - [x] color legend swatches
 - [ ] timeline
   - [x] piano roll

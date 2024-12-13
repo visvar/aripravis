@@ -71,18 +71,6 @@
   }}
 />
 
-<!-- text with explanation -->
-<a-entity
-  text="value: Fretboard Bar Chart; color: #888; width: 5"
-  position="0 0.05 0"
-  scale=".025 .025 .025"
-></a-entity>
-<a-entity
-  text="value: Connect a MIDI guitar and start playing. Notes are positioned based on their string (forward), fret (right); color: #aaa; width: 5"
-  position="-0.037 0.03 0"
-  scale=".01 .01 .01"
-></a-entity>
-
 <!-- color legend -->
 <ColorSwatches {colorMap} title="Note type" />
 <MetronomeButton bind:tempo position="0.07 0.03 0" />

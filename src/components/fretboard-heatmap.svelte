@@ -29,18 +29,6 @@
   $: colorMap = (value) => colorScale(value / maxValue);
 </script>
 
-<!-- text with explanation -->
-<a-entity
-  text="value: Fretboard Heatmap; color: #888; width: 5"
-  position="0 0.05 0"
-  scale=".025 .025 .025"
-></a-entity>
-<a-entity
-  text="value: Connect a MIDI guitar and start playing. Notes are positioned based on their string (forward), fret (right), and time (up). They are colored by string and labelled with note name and fret number.\n\nRandom notes are shown until you play.\n\nGo back in your browser to return to the main page.; color: #aaa; width: 5"
-  position="-0.037 0.03 0"
-  scale=".01 .01 .01"
-></a-entity>
-
 <!-- color legend -->
 <ColorLegend {colorScale} title="Number of notes at position" {maxValue} />
 <!-- notes -->

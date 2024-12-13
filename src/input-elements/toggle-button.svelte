@@ -5,10 +5,6 @@
   export let width = 0.04;
   export let height = 0.01;
 
-  $: switchHeight = height * 0.8;
-  $: switchWidth = switchHeight * 2;
-  $: margin = height * 0.1;
-
   const toggle = () => {
     checked = !checked;
   };
@@ -34,25 +30,19 @@
       value={label}
       color="white"
       width="5"
-      position="{-width / 2 + margin} 0 0.001"
+      position="{-0.6 * height} 0 0.001"
       scale=".015 .015 .015"
-      align="left"
-      anchor="left"
+      align="center"
+      anchor="center"
       baseline="center"
     ></a-text>
     <!-- toggle switch -->
-    <a-plane
-      position="{width / 4} 0 0.001"
-      width={switchWidth}
-      height={switchHeight}
-      color="#666"
+    <a-circle
+      position="{width / 2 - 0.6 * height} 0 0.001"
+      color={checked ? 'steelblue' : '#aaa'}
+      radius={height * 0.3}
+      segments="6"
     >
-      <a-circle
-        position="{checked ? switchWidth / 4 : -switchWidth / 4} 0 0.001"
-        color={checked ? 'steelblue' : '#888'}
-        radius={height * 0.3}
-      >
-      </a-circle>
-    </a-plane>
+    </a-circle>
   </a-plane>
 </a-entity>

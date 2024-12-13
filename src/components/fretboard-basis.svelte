@@ -81,6 +81,7 @@
     color="silver"
     radius="0.002"
     material="side: double"
+    segments="6"
   ></a-circle>
 {/each}
 {#each [12, 24] as dot}
@@ -93,6 +94,7 @@
     color="silver"
     radius="0.002"
     material="side: double"
+    segments="6"
   ></a-circle>
   <a-circle
     position={`
@@ -103,5 +105,6 @@
     color="silver"
     radius="0.002"
     material="side: double"
+    segments="6"
   ></a-circle>
 {/each}
