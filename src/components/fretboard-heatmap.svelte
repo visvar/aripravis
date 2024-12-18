@@ -34,7 +34,7 @@
 <!-- notes -->
 {#each binnedNotes as [stringPos, stringNotes]}
   {#each stringNotes as [fretPos, notes]}
-    <a-circle
+    <!-- <a-circle
       position={`
           ${(fretPositionsMeter[fretPos] + fretPositionsMeter[fretPos - 1]) / 2}
           0.003
@@ -43,6 +43,16 @@
       color={colorMap(notes.length)}
       radius="0.003"
       material="side: double"
-    ></a-circle>
+    ></a-circle> -->
+    <a-plane
+      position={`
+          ${(fretPositionsMeter[fretPos] + fretPositionsMeter[fretPos - 1]) / 2}
+          0.003
+          ${stringPositions[stringPos]}`}
+      rotation="-90 0 0"
+      color={colorMap(notes.length)}
+      width="0.005"
+      height="0.005"
+    ></a-plane>
   {/each}
 {/each}

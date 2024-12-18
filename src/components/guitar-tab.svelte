@@ -1,7 +1,6 @@
 <script>
   import * as AFRAME from 'aframe';
   import * as d3 from 'd3';
-  import { Midi } from 'musicvis-lib';
   import { onMount } from 'svelte';
   import { Note } from 'tonal';
 
@@ -21,6 +20,7 @@
    */
   const height = 512;
   const marginLeft = 50;
+  const marginRight = 10;
   const marginTop = 10;
   const marginBottom = 50;
   const fontSize = 20;
@@ -31,12 +31,13 @@
   // const stringColors = tuningNotes.map(()=>'#aaa')
   const stringColors = d3.schemeObservable10;
 
-  $: timeMin = d3.min(notes, (d) => d.time);
-  $: timeMax = d3.max(notes, (d) => d.time + d.duration);
+  $: timeMin = notes.at(0)?.time ?? 0;
+  $: timeMax =
+    notes.length === 0 ? 1 : notes.at(-1).time + notes.at(-1).duration;
   $: scaleTime = d3
     .scaleLinear()
     .domain([timeMin, timeMax])
-    .range([marginLeft, width]);
+    .range([marginLeft, width - marginRight]);
   $: scaleString = d3
     .scaleLinear()
     .domain([stringCount, 0])
@@ -88,7 +89,7 @@
         this.ctx.fillRect(
           marginLeft,
           y - stringHeight / 2,
-          width,
+          width - marginLeft - marginRight,
           stringHeight,
         );
       }

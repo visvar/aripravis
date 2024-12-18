@@ -3,6 +3,8 @@
   import { Note } from 'tonal';
   import { fretPositionsMeter } from '../lib/guitar-fret-spacing';
 
+  export let showFretNumbers = false;
+
   let stringCount = 6;
   const stringPositions = d3.range(stringCount).map((d) => d * 0.007);
   let fretCount = fretPositionsMeter.length;
@@ -54,57 +56,50 @@
   ></a-plane>
 {/each}
 <!-- fret numbers -->
-{#each [0, 1, 3, 5, 7, 9, 12, 15, 17, 19, 21, 24] as fret}
-  <a-text
-    value={fret}
-    color="#666"
-    position={`
+{#if showFretNumbers}
+  {#each [0, 1, 3, 5, 7, 9, 12, 15, 17, 19, 21, 24] as fret}
+    <a-text
+      value={fret}
+      color="#666"
+      position={`
             ${fretPositionsMeter[fret]}
             0
             ${stringPositions.at(-1) + 0.005}`}
-    scale="0.02 0.02 0.02"
-    rotation="-45 0 0"
-    material="side: double"
-    align="center"
-    anchor="center"
-    baseline="top"
-  ></a-text>
-{/each}
+      scale="0.02 0.02 0.02"
+      rotation="-45 0 0"
+      material="side: double"
+      align="center"
+      anchor="center"
+      baseline="top"
+    ></a-text>
+  {/each}
+{/if}
 <!-- inlays -->
-{#each [3, 5, 7, 9, 15, 17, 19, 21] as dot}
-  <a-circle
+{#each [1, 3, 5, 7, 9, 15, 17, 19, 21] as dot}
+  <a-plane
     position={`
           ${(fretPositionsMeter[dot] + fretPositionsMeter[dot - 1]) / 2}
           0
-          ${stringPositions.at(-1) / 2}`}
-    rotation="90 0 0"
-    color="silver"
-    radius="0.002"
-    material="side: double"
-    segments="6"
-  ></a-circle>
+          ${stringPositions.at(-1) + 0.005}`}
+    width="0.003"
+    height="0.003"
+  ></a-plane>
 {/each}
 {#each [12, 24] as dot}
-  <a-circle
+  <a-plane
     position={`
-          ${(fretPositionsMeter[dot] + fretPositionsMeter[dot - 1]) / 2}
-          0
-          ${(stringPositions.at(1) + stringPositions.at(2)) / 2}`}
-    rotation="90 0 0"
-    color="silver"
-    radius="0.002"
-    material="side: double"
-    segments="6"
-  ></a-circle>
-  <a-circle
+            ${(fretPositionsMeter[dot] + fretPositionsMeter[dot - 1]) / 2}
+            0
+            ${stringPositions.at(-1) + 0.005}`}
+    width="0.003"
+    height="0.003"
+  ></a-plane>
+  <a-plane
     position={`
-          ${(fretPositionsMeter[dot] + fretPositionsMeter[dot - 1]) / 2}
-          0
-          ${(stringPositions.at(3) + stringPositions.at(4)) / 2}`}
-    rotation="90 0 0"
-    color="silver"
-    radius="0.002"
-    material="side: double"
-    segments="6"
-  ></a-circle>
+            ${(fretPositionsMeter[dot] + fretPositionsMeter[dot - 1]) / 2}
+            -0.004
+            ${stringPositions.at(-1) + 0.005}`}
+    width="0.003"
+    height="0.003"
+  ></a-plane>
 {/each}

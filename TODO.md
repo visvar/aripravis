@@ -25,7 +25,6 @@
 
 
 - [ ] hand tracking
-  - [ ] maybe use https://github.com/c-frame/aframe-super-hands-component
 - [ ] settings
   - [x] buttons
   - [x] toggle button
@@ -38,8 +37,7 @@
   - [x] scale keyboard according to instrument
   - [ ] controller input
   - [ ] get controller position
-  - [ ] calibration mode (mark two points wtih controller)
-    - [ ] or superhand to just grab and drag there? https://www.youtube.com/watch?v=vQ85u3dzmZY&list=PLP3KjR1TMw7ekqC4o5gy0rR4odw7Jga84&index=13
+  - [ ] for now, hard-coded position and rotation
 - [ ] visualizations
   - [x] guitar heatmap
   - [x] guitar bar chart
@@ -110,7 +108,8 @@
 - a-frame components
   - npm search https://www.npmjs.com/search?q=keywords:aframe&page=1&ranking=optimal
   - collection https://github.com/supermedium/superframe#readme
-  - draw texture like an HTML canvas https://github.com/mayognaise/aframe-draw-shader
+  - draw texture like an HTML canvas
+    - https://aframe.io/docs/1.6.0/components/material.html#canvas-textures
 - world and object coordinates
   - https://aframe.io/docs/1.6.0/introduction/developing-with-threejs.html
 - hand tracking and buttons

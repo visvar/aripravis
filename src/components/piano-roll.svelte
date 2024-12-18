@@ -19,6 +19,7 @@
    */
   const height = 512;
   const marginLeft = 50;
+  const marginRight = 10;
   const marginTop = 10;
   const marginBottom = 50;
   const fontSize = 20;
@@ -28,7 +29,7 @@
   $: scaleTime = d3
     .scaleLinear()
     .domain([timeMin, timeMax])
-    .range([marginLeft, width]);
+    .range([marginLeft, width - marginRight]);
   $: pitchExtent = d3.extent(notes, (d) => d.number);
   $: scalePitch = d3
     .scaleLinear()

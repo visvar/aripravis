@@ -102,7 +102,7 @@
       radius="0.002"
       height={heightMap(notes.length)}
       segments-height="1"
-      segments-radial="6"
+      segments-radial="4"
     ></a-cylinder>
   {/each}
 {/each}

@@ -17,6 +17,7 @@
   import GuitarTab from '../components/guitar-tab.svelte';
   import PianoRoll from '../components/piano-roll.svelte';
   import PcKeyboardInput from '../input-handlers/pc-keyboard-input.svelte';
+  import RotateButton from '../input-elements/rotate-button.svelte';
 
   export let currentApp;
 
@@ -34,6 +35,7 @@
   let showMenu = true;
   let showBasis = true;
   let showBackground = false;
+  let antialias = true;
 
   const width = 2048;
   const height = 512;
@@ -144,8 +146,9 @@
   stats
   xrweb="mode: immersive-ar;"
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
-  renderer="colorManagement: true; multiviewStereo: true;"
+  renderer="colorManagement: true; multiviewStereo: true; antialias: {antialias}"
   raycaster="objects: [data-raycastable]; far:1;"
+  obb-collider="showColliders: false"
 >
   <a-assets>
     <canvas id="pianoroll-canvas" {width} {height}></canvas>
@@ -171,13 +174,13 @@
     <a-entity position="-0.25 0.1 0" scale="1.5 1.5 1.5">
       <ToggleButton label="menu" bind:checked={showMenu} position="-0.05 0 0" />
       {#if showMenu}
-        <MultiButton
+        <RotateButton
           label="encoding"
           values={encodings}
           bind:value={encoding}
           position="0 0 0"
         />
-        <MultiButton
+        <RotateButton
           label="timeline"
           values={timelines}
           bind:value={timeline}
@@ -189,10 +192,9 @@
           position="0 -0.04 0"
         />
         <ToggleButton
-          label="show background"
+          label="background"
           bind:checked={showBackground}
-          position="0.05 -0.04 0"
-          width={0.05}
+          position="0.045 -0.04 0"
         />
         <Button
           label="reset"

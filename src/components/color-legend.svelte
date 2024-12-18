@@ -5,6 +5,8 @@
   export let title = 'title';
   export let minValue = 0;
   export let maxValue = 1;
+
+  const step = 0.1;
 </script>
 
 <a-entity {position}>
@@ -18,11 +20,11 @@
     anchor="left"
     material="side: double"
   ></a-text>
-  {#each d3.range(0, 1, 0.02) as value, index}
+  {#each d3.range(0, 1 + step, step) as value, index}
     <a-plane
-      position="{index * 0.002} 0.05 0"
+      position="{(index * step) / 10} 0.05 0"
       color={colorScale(value)}
-      width={0.002}
+      width={step / 10}
       height="0.005"
       material="side: double"
     >

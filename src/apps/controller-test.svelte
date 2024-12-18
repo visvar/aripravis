@@ -78,10 +78,10 @@
     });
   });
 
+  // workaorund to make it work...
+  let show = false;
   onMount(() => {
-    window.setTimeout(() => {
-      debugMsg = 'message';
-    }, 3000);
+    show = true;
   });
 </script>
 
@@ -90,30 +90,44 @@
   xrweb="mode: immersive-ar;"
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1; highRefreshRate: true;"
+  obb-collider="showColliders: false"
 >
   <!-- camera -->
   <a-camera wasd-controls="acceleration:10; fly: true">
     <a-cursor position="0 0 -0.1" scale="0.1 0.1 0.1"></a-cursor>
   </a-camera>
   <!-- controllers -->
-  <a-entity meta-touch-controls="hand: left; model: true" thumbstick-logging>
-    <FretboardBasis />
-  </a-entity>
-  <a-entity meta-touch-controls="hand: right; model: true" thumbstick-logging>
-    <a-box color="red" scale="0.1 0.1 0.1"></a-box>
-  </a-entity>
+  {#if show}
+    <a-entity
+      meta-touch-controls="hand: left; model: true"
+      thumbstick-logging
+      triggerdown={() => (debugMsg = 'left trigger down!')}
+    >
+      <FretboardBasis />
+    </a-entity>
+    <a-entity
+      meta-touch-controls="hand: right; model: true"
+      thumbstick-logging
+      on:triggerdown={() => (debugMsg = 'right trigger down!')}
+    >
+      <a-box color="red" scale="0.1 0.1 0.1"></a-box>
+    </a-entity>
+  {/if}
   <!-- text for debugging -->
-  <a-entity
-    text="value: DEBUG:\n\n{debugMsg}; color: white; width: 5"
-    position="-0 0 -3"
+  <a-text
+    value="DEBUG:\n\n{debugMsg}"
+    color="white"
+    width="5"
+    position="0 1.4 -0.6"
     scale=".25 .25 .25"
-  ></a-entity>
+    material="side: double"
+  ></a-text>
   <!-- home button -->
   <Button
     label="quit"
     onClick={() => {
-      currentApp = null;
+      debugMsg = 'button clicked';
     }}
-    position="0 1.6 -0.2"
+    position="0 1.6 -0.4"
   />
 </a-scene>

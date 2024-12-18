@@ -27,7 +27,7 @@
   >
     <!-- label -->
     <a-text
-      value={label}
+      value="{label}: {checked ? 'on' : 'off'}"
       color="white"
       width="5"
       position="{-0.6 * height} 0 0.001"
@@ -37,12 +37,12 @@
       baseline="center"
     ></a-text>
     <!-- toggle switch -->
-    <a-circle
+    <!-- <a-circle
       position="{width / 2 - 0.6 * height} 0 0.001"
       color={checked ? 'steelblue' : '#aaa'}
       radius={height * 0.3}
-      segments="6"
+      segments="4"
     >
-    </a-circle>
+    </a-circle>-->
   </a-plane>
 </a-entity>

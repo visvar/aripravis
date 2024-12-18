@@ -35,6 +35,15 @@
 </script>
 
 <a-entity {position}>
+  <a-entity
+    position="{width / 2} 0 0"
+    obb-collider="size: 0.02"
+    obbcollisionstarted={onClick}
+    minimumColliderDimension="0.01"
+    {width}
+    {height}
+  >
+  </a-entity>
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <a-plane

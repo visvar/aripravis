@@ -1,14 +1,11 @@
 <script>
   import { onDestroy } from 'svelte';
   import HandsTest from './apps/hands-test.svelte';
-  import TimelineTest from './apps/timeline-test.svelte';
   import ControllerTest from './apps/controller-test.svelte';
   import PcKeyboardInput from './input-handlers/pc-keyboard-input.svelte';
   import PianoHeatmap from './apps/piano-heatmap.svelte';
   import { version } from '../package.json';
-  import VibrateTest from './apps/vibrate-test.svelte';
   import Guitar from './apps/guitar.svelte';
-  import TestCanvas from './tests/test-canvas2.svelte';
 
   const pw = 'ari';
   let spw = localStorage.getItem('pw') ?? '';
@@ -49,10 +46,6 @@
     {
       title: 'Piano Heatmap',
       component: PianoHeatmap,
-    },
-    {
-      title: 'Timeline Test',
-      component: TimelineTest,
     },
     {
       title: 'Hands Test',
